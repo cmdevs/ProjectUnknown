@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navi_friend"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:title="@string/navi_friend" />
+
+    <item
+        android:id="@+id/navi_map"
+        android:icon="@drawable/ic_map_black_24dp"
+        android:title="@string/navi_map" />
+
+    <item
+        android:id="@+id/navi_timeline"
+        android:icon="@drawable/ic_access_time_black_24dp"
+        android:title="@string/navi_timeline" />
+
+    <item
+        android:id="@+id/navi_more"
+        android:icon="@drawable/ic_more_black_24dp"
+        android:title="@string/navi_more" />
+
+
+</menu>
