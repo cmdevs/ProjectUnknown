@@ -16,7 +16,7 @@ class FriendItemViewModel(val friendListRepository: FriendListRepository) : Base
 
     init {
         //TODO : for friendDetail that use callback, item
-        friendData.addOnPropertyChangedCallback(object: Observable.OnPropertyChangedCallback(){
+        friendData.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 friendData.get()?.let {
                     name.set(it.name)
@@ -40,8 +40,7 @@ class FriendItemViewModel(val friendListRepository: FriendListRepository) : Base
     @Bindable
     fun getBindMessage() = friendData.get()?.message ?: ""
 
-
-    fun setFriendData(data: FriendListData){
+    fun setFriendData(data: FriendListData) {
         friendData.set(data)
     }
 

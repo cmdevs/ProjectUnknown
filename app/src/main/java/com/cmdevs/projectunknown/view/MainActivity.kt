@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import com.cmdevs.projectunknown.R
-import com.cmdevs.projectunknown.util.fragReplace
+import com.cmdevs.projectunknown.util.replace
 import com.cmdevs.projectunknown.view.friend.FriendFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,10 +18,7 @@ class MainActivity : AppCompatActivity() {
             setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.navi_friend -> {
-                        supportFragmentManager
-                            .fragReplace(
-                            R.id.mainContainer,
-                            FriendFragment.getInstance())
+                        replace(R.id.mainContainer, FriendFragment.newInstance())
                         true
                     }
 
@@ -41,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
-        supportFragmentManager.fragReplace(R.id.mainContainer, FriendFragment.getInstance())
+        replace(R.id.mainContainer, FriendFragment.newInstance())
     }
 
 }

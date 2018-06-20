@@ -25,7 +25,7 @@ class FriendFragment : Fragment() {
     }
 
     companion object {
-        fun getInstance() = FriendFragment()
+        fun newInstance() = FriendFragment()
     }
 
     override fun onCreateView(
