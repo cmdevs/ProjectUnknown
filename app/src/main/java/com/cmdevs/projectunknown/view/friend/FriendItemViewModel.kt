@@ -15,6 +15,7 @@ class FriendItemViewModel(val friendListRepository: FriendListRepository) : Base
     private val message: ObservableField<String> = ObservableField()
 
     init {
+
         //TODO : for friendDetail that use callback, item
         friendData.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
