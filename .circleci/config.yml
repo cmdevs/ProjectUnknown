@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
+      - image: circleci/android:api-28-alpha
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -15,6 +15,11 @@ jobs:
       # - image: circleci/postgres:9.4
 
     working_directory: ~/repo
+
+    branches:
+      only:
+        - master
+        - develop
 
     environment:
       # Customize the JVM maximum heap limit
