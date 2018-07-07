@@ -18,8 +18,9 @@ jobs:
 
     branches:
       only:
-        - master
         - develop
+      ignore:
+        - master
 
     environment:
       # Customize the JVM maximum heap limit
@@ -36,16 +37,13 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: gradle dependencies
+      - run: ./gradlew dependencies
 
       - save_cache:
           paths:
-            - ~/.gradle
+             - ~/.gradle/caches
+             - ~/.gradle/wrapper
           key: v1-dependencies-{{ checksum "build.gradle" }}
-
-      # run tests!
-      - run: gradle test
-
 
 
 
