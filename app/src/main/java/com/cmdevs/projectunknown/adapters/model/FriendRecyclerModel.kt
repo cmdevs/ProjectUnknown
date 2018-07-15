@@ -1,10 +1,9 @@
 package com.cmdevs.projectunknown.adapters.model
 
-import com.cmdevs.projectunknown.data.FriendListData
+import com.cmdevs.projectunknown.data.Friend
 
 interface FriendRecyclerModel{
-    fun setItem(list: List<FriendListData>)
-    fun getItem(position: Int): FriendListData
+    fun setItem(list: List<Friend>)
+    fun getItem(position: Int): Friend
     fun getItemCount(): Int
-    fun notifyDataSetChange()
 }

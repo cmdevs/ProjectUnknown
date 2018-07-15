@@ -7,16 +7,20 @@
     <data>
         <variable
             name="friend"
-            type="com.cmdevs.projectunknown.data.FriendListData"/>
+            type="com.cmdevs.projectunknown.data.Friend"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="60dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout"
@@ -30,8 +34,9 @@
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/iv_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:imgRes="@{friend.profileImage}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tvName"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -43,6 +48,7 @@
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:text="@{friend.name}"
                     tools:text="이치영"
                     app:layout_constraintBottom_toBottomOf="parent"
