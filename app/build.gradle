@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
+
 apply plugin: 'kotlin-android'
+
 apply plugin: 'kotlin-android-extensions'
+
 apply plugin: 'kotlin-kapt'
 
 
@@ -41,11 +44,15 @@ dependencies {
     //room_version = "1.1.1"
     kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
     kapt 'com.github.bumptech.glide:compiler:4.7.1'
+}
+
+dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.ext.kotlin_version"
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     implementation "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation "android.arch.lifecycle:extensions:$rootProject.lifecycleVersion"
     implementation "android.arch.paging:runtime:$rootProject.pagingVersion"
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
