@@ -26,8 +26,8 @@ class ViewModelFactorys(
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
+                isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel()
                 isAssignableFrom(FriendViewModel::class.java) -> FriendViewModel(Injection.getFriendRepository(context))
-
                 else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }
         } as T

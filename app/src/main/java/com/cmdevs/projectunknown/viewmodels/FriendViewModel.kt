@@ -12,10 +12,6 @@ class FriendViewModel(
     private val repository: FriendRepository
 ) : ViewModel() {
 
-    init {
-        Log.d("cylee", "firend viewmodel init")
-    }
-
     val friendList = LivePagedListBuilder<Int, Friend>(
         repository.getFriends(), PagedList.Config.Builder()
             .setPageSize(30)

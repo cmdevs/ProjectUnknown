@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -38,21 +39,31 @@ android {
 
 dependencies {
     //room_version = "1.1.1"
-    kapt "android.arch.persistence.room:compiler:$rootProject.room_version"
+    kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    kapt 'com.github.bumptech.glide:compiler:4.7.1'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.ext.kotlin_version"
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     implementation "com.android.support:design:$rootProject.ext.supportLibraryVersion"
     implementation "android.arch.lifecycle:extensions:$rootProject.lifecycleVersion"
-    implementation "android.arch.paging:runtime:$rootProject.paging_version"
-    implementation "android.arch.persistence.room:runtime:$rootProject.room_version"
-
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
-    kapt 'com.github.bumptech.glide:compiler:4.7.1'
-
+    implementation "android.arch.paging:runtime:$rootProject.pagingVersion"
+    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+
+    //firebase
+    implementation "com.google.firebase:firebase-core:16.0.0"
+    implementation "com.google.firebase:firebase-auth:16.0.2"
+    implementation "com.google.android.gms:play-services-auth:15.0.1"
+
+    //facebook
+    implementation 'com.facebook.android:facebook-login:[4,5)'
+
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -12,6 +12,7 @@ import com.cmdevs.projectunknown.ioThread
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun friendDao(): FriendDao
+    abstract fun loginDao(): LoginDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null
