@@ -1,23 +1,30 @@
 package com.cmdevs.projectunknown.view.friend
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.cmdevs.projectunknown.MainActivity
 import com.cmdevs.projectunknown.R
-import com.cmdevs.projectunknown.adapters.FriendListAdapter
-import com.cmdevs.projectunknown.data.FriendListData
-import com.cmdevs.projectunknown.viewmodel.FriendViewModel
-import kotlinx.android.synthetic.main.fragment_friend.*
+import com.cmdevs.projectunknown.data.friend.FriendListRepository
+import com.cmdevs.projectunknown.view.friend.adapter.FriendListAdapter
+import com.cmdevs.projectunknown.view.friend.viewmodel.FriendFactory
+import com.cmdevs.projectunknown.view.friend.viewmodel.FriendViewModel
 
 class FriendFragment : Fragment() {
 
-    lateinit var viewModel: FriendViewModel
-    lateinit var adapter: FriendListAdapter
+    val adapter: FriendListAdapter by lazy {
+        FriendListAdapter(this@FriendFragment.context)
+    }
+
+    val viewModel: FriendViewModel by lazy {
+        ViewModelProviders.of(
+            this, FriendFactory(FriendListRepository, adapter, lifecycle)
+        ).get(FriendViewModel::class.java)
+    }
 
     companion object {
         fun newInstance() = FriendFragment()
@@ -29,35 +36,17 @@ class FriendFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? = LayoutInflater.from(context).inflate(R.layout.fragment_friend, container, false)
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = (activity as MainActivity).obtainViewModel()
+        Log.d("cylee", "onActivity()")
 
-        setRecyclerView()
+        viewModel.friendDatas.observe(this, Observer {
+            Log.d("cylee", "it - $it")
+        })
 
-        subscribeUi()
+        viewModel.getFriendList()
     }
-
-    fun setRecyclerView() {
-        adapter = FriendListAdapter(
-            this@FriendFragment.context
-        )
-
-        recyclerView.run {
-            adapter = this@FriendFragment.adapter
-        }
-    }
-
-    fun subscribeUi() {
-        viewModel.run {
-            getFriends().observe(this@FriendFragment, Observer {
-                it?.let {
-                    adapter.setItem(it)
-                }
-            })
-        }
-    }
-
 
 }
 
