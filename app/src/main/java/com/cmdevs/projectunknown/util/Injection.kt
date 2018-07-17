@@ -2,17 +2,31 @@ package com.cmdevs.projectunknown.util
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
-import com.cmdevs.projectunknown.ViewModelFactory
-import com.cmdevs.projectunknown.data.source.DataRepository
+import com.cmdevs.projectunknown.data.source.FriendRepository
+import com.cmdevs.projectunknown.data.source.LoginRepository
+import com.cmdevs.projectunknown.data.source.local.AppDatabase
+import com.cmdevs.projectunknown.viewmodels.FriendListViewModelFactory
+import com.cmdevs.projectunknown.viewmodels.ViewModelFactorys
 
 object Injection {
-    fun provideDataRepository() = DataRepository
+    fun getFriendRepository(context: Context) = FriendRepository(AppDatabase.getInstance(context).friendDao())
+    fun getLoginRepository(context: Context) = LoginRepository(AppDatabase.getInstance(context).loginDao())
+
+    /*fun provideFriendListViewModelFactory(context: Context) =
+        FriendListViewModelFactory(getFriendRepository(context))*/
 }
 
-
-fun <T : ViewModel> AppCompatActivity.obtainViewModel(viewModelClass: Class<T>) =
-    ViewModelProviders.of(this, ViewModelFactory.newInstance(application, lifecycle)).get(viewModelClass)
+//Refectoring
+fun <T : ViewModel> AppCompatActivity.obtainViewModel(viewModelClass: Class<T>): T {
+    return ViewModelProviders.of(
+        this, ViewModelFactorys.newInstance(
+            this
+        )
+    )
+        .get(viewModelClass)
+}
 
 
 

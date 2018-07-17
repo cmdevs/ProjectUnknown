@@ -3,28 +3,23 @@ package com.cmdevs.projectunknown.view.friend
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.cmdevs.projectunknown.MainActivity
 import com.cmdevs.projectunknown.R
-import com.cmdevs.projectunknown.data.friend.FriendListRepository
-import com.cmdevs.projectunknown.view.friend.adapter.FriendListAdapter
-import com.cmdevs.projectunknown.view.friend.viewmodel.FriendFactory
-import com.cmdevs.projectunknown.view.friend.viewmodel.FriendViewModel
+import com.cmdevs.projectunknown.adapters.FriendListAdapter
+import com.cmdevs.projectunknown.util.Injection
+import com.cmdevs.projectunknown.viewmodels.FriendViewModel
+import kotlinx.android.synthetic.main.fragment_friend.*
 
 class FriendFragment : Fragment() {
 
-    val adapter: FriendListAdapter by lazy {
-        FriendListAdapter(this@FriendFragment.context)
-    }
-
-    val viewModel: FriendViewModel by lazy {
-        ViewModelProviders.of(
-            this, FriendFactory(FriendListRepository, adapter, lifecycle)
-        ).get(FriendViewModel::class.java)
-    }
+    lateinit var viewModel: FriendViewModel
+    lateinit var adapter: FriendListAdapter
 
     companion object {
         fun newInstance() = FriendFragment()
@@ -36,17 +31,45 @@ class FriendFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? = LayoutInflater.from(context).inflate(R.layout.fragment_friend, container, false)
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.d("cylee", "onActivity()")
 
-        viewModel.friendDatas.observe(this, Observer {
-            Log.d("cylee", "it - $it")
-        })
+        //val factory = Injection.provideFriendListViewModelFactory(activity as MainActivity)
+        //viewModel = ViewModelProviders.of((activity as MainActivity), factory).get(FriendViewModel::class.java)
+        viewModel = (activity as MainActivity).obtainViewModel()
 
-        viewModel.getFriendList()
+        setupRecyclerView()
+        setupFabButtion()
+        subscribeUi()
     }
+
+    fun setupRecyclerView() {
+        adapter = FriendListAdapter()
+
+        recyclerView.run {
+            adapter = this@FriendFragment.adapter
+        }
+    }
+
+    fun setupFabButtion() {
+        activity?.findViewById<FloatingActionButton>(R.id.fabNewFriend)?.apply {
+            setOnClickListener {
+                viewModel.addNewFriend()
+            }
+        }
+    }
+
+    fun subscribeUi() {
+        viewModel.run {
+            getFriends().observe(this@FriendFragment, Observer {
+                Log.d("cylee", "observe()")
+                it?.let {
+                    adapter.submitList(it)
+                }
+            })
+        }
+    }
+
 
 }
 

@@ -1,17 +1,16 @@
 package com.cmdevs.projectunknown.binding
 
 import android.databinding.BindingAdapter
-import android.support.v7.widget.RecyclerView
-import com.cmdevs.projectunknown.adapters.FriendListAdapter
-import com.cmdevs.projectunknown.data.FriendListData
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
-@BindingAdapter("items")
-fun setFriendList(view: RecyclerView, list: List<FriendListData>) {
-
+@BindingAdapter("imgRes")
+fun setProfileImage(view: ImageView, imgUrl: String) {
     with(view) {
-        (adapter as FriendListAdapter)?.let {
-            it.setItem(list)
-        }
+        Glide.with(this)
+            .load(imgUrl)
+            .apply(RequestOptions().circleCrop().error(0))
+            .into(this)
     }
-
 }
