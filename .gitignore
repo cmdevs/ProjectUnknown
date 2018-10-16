@@ -7,4 +7,9 @@
 .DS_Store
 /build
 /captures
-.externalNativeBuild
+.externalNativeBuildg
+# Ignore From Studio
+/.idea/*
+/build
+/app/google-services.json
+

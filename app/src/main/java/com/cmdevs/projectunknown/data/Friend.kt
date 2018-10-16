@@ -8,7 +8,6 @@ import android.arch.persistence.room.PrimaryKey
 data class Friend(
     @PrimaryKey @ColumnInfo(name = "id") val userId: String,
     val name: String,
-    val age: Int,
     val message: String,
     val profileImage: String
 )

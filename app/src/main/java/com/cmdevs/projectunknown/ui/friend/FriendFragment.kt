@@ -1,7 +1,6 @@
-package com.cmdevs.projectunknown.view.friend
+package com.cmdevs.projectunknown.ui.friend
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import com.cmdevs.projectunknown.MainActivity
 import com.cmdevs.projectunknown.R
 import com.cmdevs.projectunknown.adapters.FriendListAdapter
-import com.cmdevs.projectunknown.util.Injection
 import com.cmdevs.projectunknown.viewmodels.FriendViewModel
 import kotlinx.android.synthetic.main.fragment_friend.*
 

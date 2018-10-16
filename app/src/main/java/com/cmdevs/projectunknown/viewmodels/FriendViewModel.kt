@@ -12,7 +12,7 @@ class FriendViewModel(
     private val repository: FriendRepository
 ) : ViewModel() {
 
-    val friendList = LivePagedListBuilder<Int, Friend>(
+    private val friendList = LivePagedListBuilder<Int, Friend>(
         repository.getFriends(), PagedList.Config.Builder()
             .setPageSize(30)
             .setEnablePlaceholders(true)

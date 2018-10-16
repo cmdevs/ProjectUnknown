@@ -1,21 +1,18 @@
 package com.cmdevs.projectunknown.viewmodels
 
 import android.app.Application
-import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import android.content.Context
-import com.cmdevs.projectunknown.data.source.FriendRepository
 import com.cmdevs.projectunknown.util.Injection
 
 class ViewModelFactorys(
-    private val context: Context
+    private val context: Application
 ) : ViewModelProvider.NewInstanceFactory() {
 
     companion object {
         private var INSTANCE: ViewModelFactorys? = null
 
-        fun newInstance(context: Context) =
+        fun newInstance(context: Application) =
             INSTANCE ?: synchronized(
                 ViewModelFactorys::class.java
             ) {
@@ -26,7 +23,7 @@ class ViewModelFactorys(
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
-                isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel()
+                isAssignableFrom((ProfileViewModel::class.java)) -> ProfileViewModel(Injection.getLoginRepository(context))
                 isAssignableFrom(FriendViewModel::class.java) -> FriendViewModel(Injection.getFriendRepository(context))
                 else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }
