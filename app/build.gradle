@@ -28,6 +28,15 @@ android {
         enabled = true
     }
 
+    androidExtensions {
+        experimental = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
@@ -46,6 +55,14 @@ dependencies {
 
     //kodein
     implementation "org.kodein.di:kodein-di-generic-jvm:$rootProject.kodeinVersion"
+
+    //firebase
+    implementation "com.google.firebase:firebase-core:$rootProject.firebaseCoreVersion"
+    implementation "com.google.firebase:firebase-auth:$rootProject.firebaseAuthVersion"
+    implementation "com.google.android.gms:play-services-auth:$rootProject.playServiceAuth"
+
+    //facebook
+    implementation 'com.facebook.android:facebook-login:[4,5)'
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
