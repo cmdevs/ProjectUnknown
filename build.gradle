@@ -3,13 +3,17 @@
 buildscript {
 
     ext {
-        kotlin_version = '1.2.51'
-        supportLibraryVersion = '27.1.1'
+        kotlin_version = '1.2.71'
+        supportLibraryVersion = '28.0.0'
         glideVersion = '4.7.1'
         pagingVersion = "1.0.1"
-        lifecycleVersion = '1.1.1'
+        lifecycleVersion = '2.0.0'
+        pagingVersion = '2.1.0-alpha01'
         retrofitVersion = '2.4.0'
-        kodeinVersion = '5.2.0'
+        kodeinVersion = '5.3.0'
+        firebaseCoreVersion = '16.0.0'
+        firebaseAuthVersion = '16.0.2'
+        playServiceAuth = '15.0.1'
     }
 
     repositories {
@@ -17,9 +21,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.android.tools.build:gradle:3.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
+        classpath 'com.google.gms:google-services:4.0.2'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -29,6 +33,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
     }
 }
 

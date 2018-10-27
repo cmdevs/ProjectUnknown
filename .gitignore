@@ -10,4 +10,6 @@
 /captures
 .externalNativeBuild
 .gitignore
+/app/google-services.json
+
 
