@@ -1,6 +1,7 @@
 package com.cmdevs.projectunknown
 
 import android.app.Application
+import com.cmdevs.projectunknown.di.fireBaseModule
 import com.cmdevs.projectunknown.di.viewModelFactoryModule
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -13,6 +14,7 @@ class MainApplication : Application(), KodeinAware {
         constant("test") with "testKey"
         import(androidXModule(this@MainApplication))
         import(viewModelFactoryModule)
+        import(fireBaseModule)
     }
 
 }

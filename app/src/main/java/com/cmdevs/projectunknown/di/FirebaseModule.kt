@@ -25,5 +25,4 @@ val fireBaseModule = Kodein.Module("firebase_module") {
 
     //facebook
     bind<CallbackManager>() with singleton { CallbackManager.Factory.create() }
-
 }

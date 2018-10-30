@@ -8,7 +8,7 @@
     <string name="navi_more">더보기</string>
 
     <!-- google -->
-    <string name="default_web_client_id">326251476847-007pkmgd41lbseotdjrck5hh4f0du95a.apps.googleusercontent.com</string>
+    <!--<string name="default_web_client_id">326251476847-007pkmgd41lbseotdjrck5hh4f0du95a.apps.googleusercontent.com</string>-->
 
     <!--facebook -->
     <string name="facebook_app_id">1572365486225880</string>
