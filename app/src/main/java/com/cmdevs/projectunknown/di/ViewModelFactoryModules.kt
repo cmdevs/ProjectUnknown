@@ -8,6 +8,6 @@ import org.kodein.di.generic.singleton
 
 val viewModelFactoryModule = Kodein.Module("view_model_provider_factory_module") {
     bind<LoginViewModelProviderFactory>() with singleton {
-        LoginViewModelProviderFactory(instance("test"))
+        LoginViewModelProviderFactory()
     }
 }

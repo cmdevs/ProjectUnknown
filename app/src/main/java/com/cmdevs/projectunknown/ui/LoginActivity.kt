@@ -2,13 +2,13 @@ package com.cmdevs.projectunknown.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.cmdevs.projectunknown.BaseActivity
 import com.cmdevs.projectunknown.R
 import com.cmdevs.projectunknown.databinding.ActivityLoginBinding
 import com.cmdevs.projectunknown.result.EventObserver
 import com.cmdevs.projectunknown.util.provideTokenToFirebase
+import com.cmdevs.projectunknown.util.registerEmail
 import com.cmdevs.projectunknown.util.setupFacebook
 import com.cmdevs.projectunknown.util.viewModelProvder
 import com.facebook.CallbackManager
@@ -16,6 +16,7 @@ import com.facebook.FacebookException
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import org.kodein.di.generic.instance
 
@@ -77,9 +78,24 @@ class LoginActivity : BaseActivity() {
         })
 
         loginViewModel.emailLoginEvent.observe(this, EventObserver {
-            Log.d("cylee", "emailinfo : ${it}")
+            firebaseAuth.registerEmail(it) {
+                //doing
+            }
         })
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        callbackManager.onActivityResult(requestCode, resultCode, data) //facebook
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            REQUEST_GOOGLE_SIGNING -> {
+                GoogleSignIn.getSignedInAccountFromIntent(data).run {
+                    provideTokenToFirebase(getResult(ApiException::class.java)) {
+                        //just or viewmodel?
+                    }
+                }
+            }
+        }
     }
 
 }

@@ -1,6 +1,5 @@
 package com.cmdevs.projectunknown.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,9 +7,7 @@ import com.cmdevs.projectunknown.data.EmailInfo
 import com.cmdevs.projectunknown.result.Event
 import com.cmdevs.projectunknown.util.safeLet
 
-class LoginViewModel(
-    val provider: String
-) : ViewModel() {
+class LoginViewModel : ViewModel() {
 
     val emailId = MutableLiveData<String>()
     val emailPassword = MutableLiveData<String>()
@@ -32,11 +29,8 @@ class LoginViewModel(
             emailId.value,
             emailPassword.value
         ) { id, password ->
-            _emailLoginEvent.postValue(Event(EmailInfo(id!!, password!!)))
+            _emailLoginEvent.postValue(Event(EmailInfo(id, password)))
         }
-
-        Log.d("cylee", "emailId : ${emailId.value}")
-        Log.d("cylee", "emailPassword : ${emailPassword.value}")
     }
 
 }

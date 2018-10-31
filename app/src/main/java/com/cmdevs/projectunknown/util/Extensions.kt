@@ -20,6 +20,6 @@ inline fun <reified VM : ViewModel> Fragment.activityViewModelProvider(
 ) =
     ViewModelProviders.of(requireActivity(), provider).get(VM::class.java)
 
-fun <T1, T2> safeLet(t: T1, t2: T2, block: (T1, T2) -> Unit) {
-    if (t != null && t2 != null) block(t, t2) else null
+fun <T1: Any, T2: Any, R: Any> safeLet(t: T1?, t2: T2?, block: (T1, T2) -> R): R?{
+    return if (t != null && t2 != null) block(t, t2) else null
 }
