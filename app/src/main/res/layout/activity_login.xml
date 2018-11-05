@@ -52,10 +52,10 @@
             android:id="@+id/tvEmailLogin"
             android:layout_width="0dp"
             android:layout_height="30dp"
+            android:onClick="@{() -> viewmodel.emailLogin()}"
             android:text="e-mail Login"
             android:textAlignment="center"
             android:textSize="15dp"
-            android:onClick="@{() -> viewmodel.emailLogin()}"
             app:layout_constraintBottom_toTopOf="@id/barrier"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,10 +75,10 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginTop="20dp"
-            android:text="SIGN IN"
-            android:textSize="15dp"
-            android:textAlignment="center"
             android:onClick="@{() -> viewmodel.googleSignIn()}"
+            android:text="SIGN IN"
+            android:textAlignment="center"
+            android:textSize="15dp"
             app:layout_constraintBottom_toTopOf="@id/facebookSignButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +93,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/googleSignButton" />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_fileName="material_loader.json"
+            app:lottie_loop="true"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

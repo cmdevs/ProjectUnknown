@@ -65,6 +65,9 @@ dependencies {
     //facebook
     implementation 'com.facebook.android:facebook-login:[4,5)'
 
+    //lottie
+    implementation "com.airbnb.android:lottie:$rootProject.lottieVersion"
+
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'

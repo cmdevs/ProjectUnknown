@@ -1,15 +1,10 @@
 <resources>
     <string name="app_name">ProjectUnknown</string>
-
     <!-- navigation item -->
     <string name="navi_friend">친구</string>
     <string name="navi_map">지도</string>
     <string name="navi_timeline">피드</string>
     <string name="navi_more">더보기</string>
-
-    <!-- google -->
-    <!--<string name="default_web_client_id">326251476847-007pkmgd41lbseotdjrck5hh4f0du95a.apps.googleusercontent.com</string>-->
-
     <!--facebook -->
     <string name="facebook_app_id">1572365486225880</string>
     <string name="fb_login_protocol_scheme">fb1572365486225880</string>

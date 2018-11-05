@@ -2,15 +2,13 @@ package com.cmdevs.projectunknown.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.cmdevs.projectunknown.BaseActivity
 import com.cmdevs.projectunknown.R
 import com.cmdevs.projectunknown.databinding.ActivityLoginBinding
 import com.cmdevs.projectunknown.result.EventObserver
-import com.cmdevs.projectunknown.util.provideTokenToFirebase
-import com.cmdevs.projectunknown.util.registerEmail
-import com.cmdevs.projectunknown.util.setupFacebook
-import com.cmdevs.projectunknown.util.viewModelProvder
+import com.cmdevs.projectunknown.util.*
 import com.facebook.CallbackManager
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
@@ -18,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_login.*
 import org.kodein.di.generic.instance
 
 class LoginActivity : BaseActivity() {
@@ -47,25 +46,23 @@ class LoginActivity : BaseActivity() {
             when (it) {
                 is LoginResult -> {
                     it?.let {
-                        provideTokenToFirebase(it as LoginResult) {
-                            with(firebaseAuth) {
+                        Log.d("cylee", "success")
+                        firebaseAuth.provideTokenToFirebase(it as LoginResult) {
+                            /*with(firebaseAuth) {
                                 signInWithCredential(it)
                                     .addOnCompleteListener {
                                         //just or viewmodel?
                                     }
-                            }
+                            }*/
                         }
                     }
                 }
                 is FacebookException -> {
                     //doingSomething Exception
+                    Log.d("cylee", "FacebookException")
                 }
                 else -> {
-                    it.takeIf {
-                        it == null
-                    }?.let {
-                        //facebook cancel
-                    }
+                    if (it == null) Log.d("cylee", "it == null")
                 }
             }
         }
@@ -78,10 +75,14 @@ class LoginActivity : BaseActivity() {
         })
 
         loginViewModel.emailLoginEvent.observe(this, EventObserver {
+            lottieView.loadingStart()
             firebaseAuth.registerEmail(it) {
                 //doing
+                Log.d("cylee","email it ${it}")
+                lottieView.loadingStop()
             }
         })
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -89,9 +90,12 @@ class LoginActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             REQUEST_GOOGLE_SIGNING -> {
+                lottieView.loadingStart()
                 GoogleSignIn.getSignedInAccountFromIntent(data).run {
-                    provideTokenToFirebase(getResult(ApiException::class.java)) {
+                    firebaseAuth.provideTokenToFirebase(getResult(ApiException::class.java)) {
                         //just or viewmodel?
+                        Log.d("cylee", "it ${it}")
+                        lottieView.loadingStop()
                     }
                 }
             }
