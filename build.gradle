@@ -14,6 +14,7 @@ buildscript {
         firebaseCoreVersion = '16.0.0'
         firebaseAuthVersion = '16.0.2'
         playServiceAuth = '15.0.1'
+        lottieVersion = '2.8.0'
     }
 
     repositories {
