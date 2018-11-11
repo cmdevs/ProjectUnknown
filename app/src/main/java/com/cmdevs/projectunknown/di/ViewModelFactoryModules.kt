@@ -1,6 +1,7 @@
 package com.cmdevs.projectunknown.di
 
 import com.cmdevs.projectunknown.ui.LoginViewModelProviderFactory
+import com.cmdevs.projectunknown.ui.ProfileViewModelProviderFactory
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.singleton
@@ -8,5 +9,9 @@ import org.kodein.di.generic.singleton
 val viewModelFactoryModule = Kodein.Module("view_model_provider_factory_module") {
     bind<LoginViewModelProviderFactory>() with singleton {
         LoginViewModelProviderFactory()
+    }
+
+    bind<ProfileViewModelProviderFactory>() with singleton {
+        ProfileViewModelProviderFactory()
     }
 }

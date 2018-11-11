@@ -1,12 +1,12 @@
 package com.cmdevs.projectunknown.util
 
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import com.cmdevs.projectunknown.data.EmailInfo
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
+import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
@@ -14,30 +14,49 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import kotlinx.android.synthetic.main.activity_login.*
 
 
-fun AppCompatActivity.setupFacebook(callbackManager: CallbackManager, block: (Any?) -> Unit) {
+fun LoginManager.facebookSignIn(callbackManager: CallbackManager, block: (Any?) -> Unit) {
+    registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+        override fun onSuccess(result: LoginResult?) {
+            Log.d("cylee","onSuccess()")
+            block(result?.accessToken)
+        }
+
+        override fun onCancel() {
+            Log.d("cylee","onCancel()")
+            block(null)
+        }
+
+        override fun onError(error: FacebookException?) {
+            Log.d("cylee","onError()")
+            block(error)
+        }
+    })
+}
+
+
+/*fun AppCompatActivity.setupFacebook(callbackManager: CallbackManager, block: (Any?) -> Unit) {
     with(facebookSignButton) {
         setReadPermissions("email", "public_profile")
         registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult) {
-                Log.d("cylee","onSuccess()")
+                Log.d("cylee", "onSuccess()")
                 block(result)
             }
 
             override fun onCancel() {
-                Log.d("cylee","onCancel()")
+                Log.d("cylee", "onCancel()")
                 block(null)
             }
 
             override fun onError(error: FacebookException) {
-                Log.d("cylee","onError()")
+                Log.d("cylee", "onError()")
                 block(error)
             }
         })
     }
-}
+}*/
 
 fun FirebaseAuth.provideTokenToFirebase(token: Any?, block: (Task<AuthResult>) -> Unit) {
     when (token) {

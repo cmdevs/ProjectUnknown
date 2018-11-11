@@ -8,4 +8,5 @@ fun LottieAnimationView.loadingStart() {
 
 fun LottieAnimationView.loadingStop() {
     pauseAnimation()
+    clearAnimation()
 }
