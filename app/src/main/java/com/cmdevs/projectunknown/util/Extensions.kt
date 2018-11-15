@@ -3,9 +3,7 @@ package com.cmdevs.projectunknown.util
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
 
 
 inline fun <reified VM : ViewModel> FragmentActivity.viewModelProvder(
@@ -21,6 +19,16 @@ inline fun <reified VM : ViewModel> Fragment.activityViewModelProvider(
 ) =
     ViewModelProviders.of(requireActivity(), provider).get(VM::class.java)
 
+/** Uses `Transformations.map` on a LiveData */
+fun <X, Y> LiveData<X>.map(body: (X) -> Y): LiveData<Y> {
+    return Transformations.map(this, body)
+}
+
+/** Uses `Transformations.switchMap` on a LiveData */
+fun <X, Y> LiveData<X>.switchMap(body: (X) -> LiveData<Y>): LiveData<Y> {
+    return Transformations.switchMap(this, body)
+}
+
 fun LoginBottomSheetShow(
     dialog: DialogFragment,
     func: DialogFragment.() -> Unit
@@ -28,6 +36,6 @@ fun LoginBottomSheetShow(
     dialog.func()
 }
 
-fun <T1: Any, T2: Any, R: Any> safeLet(t: T1?, t2: T2?, block: (T1, T2) -> R): R?{
+fun <T1 : Any, T2 : Any, R : Any> safeLet(t: T1?, t2: T2?, block: (T1, T2) -> R): R? {
     return if (t != null && t2 != null) block(t, t2) else null
 }

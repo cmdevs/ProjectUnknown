@@ -5,9 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cmdevs.projectunknown.data.EmailInfo
 import com.cmdevs.projectunknown.result.Event
+import com.cmdevs.projectunknown.ui.signin.SignInDelegate
 import com.cmdevs.projectunknown.util.safeLet
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(
+    val signInDelegate: SignInDelegate
+) : ViewModel(), SignInDelegate by signInDelegate {
 
     val emailId = MutableLiveData<String>()
     val emailPassword = MutableLiveData<String>()
@@ -24,16 +27,20 @@ class LoginViewModel : ViewModel() {
     val emailLoginInputEvent: LiveData<Event<Unit>>
         get() = _emailLoginInputEvent
 
-    val _googleSignInEvent = MutableLiveData<Event<Unit>>()
-    val googleSignInEvent: LiveData<Event<Unit>>
-        get() = _googleSignInEvent
+    val _navigationToGoogleSignIn = MutableLiveData<Event<Unit>>()
+    val navigationToGoogleSignIn: LiveData<Event<Unit>>
+        get() = _navigationToGoogleSignIn
 
     val _facebookSignInEvent = MutableLiveData<Event<Unit>>()
     val facebookSignInEvent: LiveData<Event<Unit>>
         get() = _facebookSignInEvent
 
-    fun googleSignIn() {
-        _googleSignInEvent.postValue(Event(Unit))
+    fun onGoogleSignInClicked() {
+        if (isSignedIn()) { //logout
+
+        } else { //sign In
+            _navigationToGoogleSignIn.postValue(Event(Unit))
+        }
     }
 
     fun facebookSignIn() {
@@ -41,7 +48,9 @@ class LoginViewModel : ViewModel() {
     }
 
     fun emailLoginInput(type: String) {
-        if (type.equals("join")) _emailSignInTitle.postValue("회원가입") else _emailSignInTitle.postValue("로그인")
+        if (type.equals("join")) _emailSignInTitle.postValue("회원가입") else _emailSignInTitle.postValue(
+            "로그인"
+        )
         _emailLoginInputEvent.postValue(Event(Unit))
     }
 

@@ -19,7 +19,7 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:drawableTop="@drawable/ic_google_64"
-            android:onClick="@{() -> viewmodel.googleSignIn()}"
+            android:onClick="@{() -> viewmodel.onGoogleSignInClicked()}"
             android:text="google"
             android:textAlignment="center"
             android:textSize="20dp"

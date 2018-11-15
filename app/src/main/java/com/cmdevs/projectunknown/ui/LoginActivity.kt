@@ -141,7 +141,7 @@ class LoginActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Log.d("cylee", "onActivityResult()")
         super.onActivityResult(requestCode, resultCode, data)
-        signInHandler.signIn(resultCode, data) {
+        /*signInHandler.signIn(resultCode, data) {
             if (it == SignInSuccess) {
                 startActivity(
                     startIntent(
@@ -155,7 +155,7 @@ class LoginActivity : BaseActivity() {
                     )
                 )
             }
-        }
+        }*/
         /*when (requestCode) {
             REQUEST_GOOGLE_SIGNING -> {
                 lottieView.loadingStart()

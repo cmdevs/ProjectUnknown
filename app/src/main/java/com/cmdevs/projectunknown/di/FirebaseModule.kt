@@ -18,9 +18,6 @@ val fireBaseModule = Kodein.Module("firebase_module") {
     //firebase
     bind<FirebaseAuth>() with singleton { FirebaseAuth.getInstance() }
 
-    //signin
-    bind<SignInHandler>() with singleton { DefaultSignInHandler() }
-
     //facebook
     bind<CallbackManager>() with singleton { CallbackManager.Factory.create() }
     bind<LoginManager>() with singleton { LoginManager.getInstance() }
