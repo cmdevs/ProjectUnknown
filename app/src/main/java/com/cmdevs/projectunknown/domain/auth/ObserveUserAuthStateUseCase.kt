@@ -22,9 +22,6 @@ import com.cmdevs.projectunknown.data.signin.datasource.AuthStateUserDataSource
 import com.cmdevs.projectunknown.data.signin.datasource.RegisteredUserDataSource
 import com.cmdevs.projectunknown.domain.MediatorUseCase
 import com.cmdevs.projectunknown.result.Result
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.generic.instance
 
 /**
  * A [MediatorUseCase] that observes two data sources to generate an [AuthenticatedUserInfo]

@@ -16,6 +16,7 @@
 
 package com.cmdevs.projectunknown.data.signin.datasource
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cmdevs.projectunknown.data.signin.AuthenticatedUserInfoBasic
@@ -26,9 +27,6 @@ import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GetTokenResult
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.generic.instance
 
 /**
  * An [AuthStateUserDataSource] that listens to changes in [FirebaseAuth].
@@ -46,10 +44,8 @@ import org.kodein.di.generic.instance
  * [FirestoreRegisteredUserDataSource].
  */
 class FirebaseAuthStateUserDataSource(
-    override val kodein: Kodein
-) : AuthStateUserDataSource, KodeinAware {
-
-    val firebaseAuth by instance<FirebaseAuth>()
+    val firebaseAuth: FirebaseAuth
+) : AuthStateUserDataSource {
 
     private val currentFirebaseUserObservable =
         MutableLiveData<Result<AuthenticatedUserInfoBasic?>>()
@@ -60,6 +56,7 @@ class FirebaseAuthStateUserDataSource(
     // and updates the user ID observable.
     private val authStateListener: ((FirebaseAuth) -> Unit) = { auth ->
         DefaultScheduler.execute {
+            Log.d("cylee","authStateListener")
             currentFirebaseUserObservable.postValue(
                 Result.Success(
                     FirebaseUserInfo(auth.currentUser)

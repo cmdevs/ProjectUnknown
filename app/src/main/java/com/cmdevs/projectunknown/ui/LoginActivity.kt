@@ -6,28 +6,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.cmdevs.projectunknown.BaseActivity
 import com.cmdevs.projectunknown.R
 import com.cmdevs.projectunknown.data.User
 import com.cmdevs.projectunknown.databinding.ActivityLoginBinding
+import com.cmdevs.projectunknown.result.Event
 import com.cmdevs.projectunknown.result.EventObserver
-import com.cmdevs.projectunknown.ui.dialog.LoginBottomSheetDialog
-import com.cmdevs.projectunknown.util.*
+import com.cmdevs.projectunknown.ui.signin.SignInEvent
 import com.cmdevs.projectunknown.util.signin.SignInHandler
-import com.cmdevs.projectunknown.util.signin.SignInSuccess
-import com.facebook.CallbackManager
-import com.facebook.login.LoginManager
-import com.firebase.ui.auth.IdpResponse
-import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_login.*
+import com.cmdevs.projectunknown.util.viewModelProvder
 import org.kodein.di.generic.instance
 
 class LoginActivity : BaseActivity() {
 
     val factory by instance<LoginViewModelProviderFactory>()
-    val firebaseAuth by instance<FirebaseAuth>()
-    val callbackManager by instance<CallbackManager>()
-    val loginManager by instance<LoginManager>()
+    //val firebaseAuth by instance<FirebaseAuth>()
+    //val callbackManager by instance<CallbackManager>()
+    //val loginManager by instance<LoginManager>()
 
     val signInHandler by instance<SignInHandler>()
 
@@ -55,18 +51,30 @@ class LoginActivity : BaseActivity() {
             viewmodel = loginViewModel
         }
 
-        loginViewModel.googleSignInEvent.observe(this, EventObserver {
-            /*startActivityForResult(
+        loginViewModel.performSignInEvent.observe(this, EventObserver {
+            if (it == SignInEvent.RequestSignIn) {
+                signInHandler.makeSignIntent()?.let {
+                    startActivityForResult(it, REQUEST_GOOGLE_SIGNING)
+                }
+            }
+        })
+
+        loginViewModel.navigationToProfile.observe(this, EventObserver{
+            Log.d("cylee","AuthenticatedUserInfo : $it")
+        })
+
+        /*loginViewModel.googleSignInEvent.observe(this, EventObserver {
+            *//*startActivityForResult(
                 Intent(GoogleSignIn.getClient(this@LoginActivity, googleSignOptions).signInIntent),
                 REQUEST_GOOGLE_SIGNING
-            )*/
+            )*//*
             startActivityForResult(
                 signInHandler.makeSignIntent(),
                 REQUEST_GOOGLE_SIGNING
             )
-        })
+        })*/
 
-        loginViewModel.facebookSignInEvent.observe(this, EventObserver {
+        /*loginViewModel.facebookSignInEvent.observe(this, EventObserver {
             loginManager.logInWithReadPermissions(
                 this,
                 mutableListOf("email", "public_profile")
@@ -74,17 +82,17 @@ class LoginActivity : BaseActivity() {
             loginManager.facebookSignIn(
                 callbackManager
             ) {
-                /*when (it) {
+                *//*when (it) {
                     is Au -> {
                         it?.let {
                             Log.d("cylee", "success")
                             firebaseAuth.provideTokenToFirebase(it as LoginResult) {
-                                *//*with(firebaseAuth) {
+                                *//**//*with(firebaseAuth) {
                                     signInWithCredential(it)
                                         .addOnCompleteListener {
                                             //just or viewmodel?
                                         }
-                                }*//*
+                                }*//**//*
                             }
                         }
                     }
@@ -95,11 +103,11 @@ class LoginActivity : BaseActivity() {
                     else -> {
                         if (it == null) Log.d("cylee", "it == null")
                     }
-                }*/
+                }*//*
             }
-        })
+        })*/
 
-        loginViewModel.emailLoginEvent.observe(this, EventObserver {
+        /*loginViewModel.emailLoginEvent.observe(this, EventObserver {
             lottieView.loadingStart()
             firebaseAuth.registerEmail(it) {
                 //doing
@@ -123,9 +131,9 @@ class LoginActivity : BaseActivity() {
                 }
                 lottieView.loadingStop()
             }
-        })
+        })*/
 
-        loginViewModel.emailLoginInputEvent.observe(this, EventObserver {
+        /*loginViewModel.emailLoginInputEvent.observe(this, EventObserver {
             Log.d("cylee", "emailLoginInputEvent::clicked!!")
             LoginBottomSheetShow(LoginBottomSheetDialog.newInstance()) {
                 show(
@@ -133,7 +141,7 @@ class LoginActivity : BaseActivity() {
                     "LoginBottomSheet"
                 )
             }
-        })
+        })*/
 
     }
 
