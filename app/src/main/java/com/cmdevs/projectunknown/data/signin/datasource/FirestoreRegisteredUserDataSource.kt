@@ -16,6 +16,7 @@
 
 package com.cmdevs.projectunknown.data.signin.datasource
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cmdevs.projectunknown.domain.internal.DefaultScheduler
@@ -46,19 +47,19 @@ class FirestoreRegisteredUserDataSource
      * will emit a new user.
      */
     override fun listenToUserChanges(newUserId: String) {
+        Log.d("cylee","listenToUserChanges newUserId : ${newUserId}")
 
-        /*val userId = if (lastUserId != newUserId) {
+        val userId = if (lastUserId != newUserId) {
             newUserId
         } else {
             // No need to refresh
             return
         }
-
+        result.postValue(Result.Success(true))
+        lastUserId = userId
         // Remove the previous subscription, if it exists:
         //registeredChangedListenerSubscription?.remove()
-
-        result.postValue(null) // Reset result
-
+        /*result.postValue(null) // Reset result
         // Watch the document:
         val registeredChangedListener =
             { snapshot: DocumentSnapshot?, _: FirebaseFirestoreException? ->

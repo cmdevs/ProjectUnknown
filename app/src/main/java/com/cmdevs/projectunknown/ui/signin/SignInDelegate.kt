@@ -17,6 +17,7 @@
 package com.cmdevs.projectunknown.ui.signin
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -94,7 +95,7 @@ interface SignInDelegate {
  * Implementation of SignInViewModelDelegate that uses Firebase's auth mechanisms.
  */
 internal class FirebaseSignInlDelegate(
-    val observeUserAuthStateUseCase: ObserveUserAuthStateUseCase
+    observeUserAuthStateUseCase: ObserveUserAuthStateUseCase
 ) : SignInDelegate {
 
     override val performSignInEvent = MutableLiveData<Event<SignInEvent>>()

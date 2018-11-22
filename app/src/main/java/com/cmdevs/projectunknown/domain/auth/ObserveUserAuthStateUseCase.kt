@@ -16,6 +16,7 @@
 
 package com.cmdevs.projectunknown.domain.auth
 
+import android.util.Log
 import com.cmdevs.projectunknown.data.signin.AuthenticatedUserInfo
 import com.cmdevs.projectunknown.data.signin.FirebaseRegisteredUserInfo
 import com.cmdevs.projectunknown.data.signin.datasource.AuthStateUserDataSource
@@ -33,7 +34,7 @@ import com.cmdevs.projectunknown.result.Result
  */
 
 open class ObserveUserAuthStateUseCase(
-    val registeredUserDataSource: RegisteredUserDataSource,
+    registeredUserDataSource: RegisteredUserDataSource,
     val authStateUserDataSource: AuthStateUserDataSource
 ) : MediatorUseCase<Any, AuthenticatedUserInfo>() {
 
@@ -42,13 +43,12 @@ open class ObserveUserAuthStateUseCase(
     private val isUserRegisteredObservable = registeredUserDataSource.observeResult()
 
     init {
-
         // If the Firebase user changes, query firestore to figure out if they're registered.
         result.addSource(currentFirebaseUserObservable) {
             val userResult = currentFirebaseUserObservable.value
 
             // Start observing the user in Firestore to fetch the `registered` flag
-            (userResult as? Result.Success<AuthenticatedUserInfo>)?.data?.getUid()?.let {
+            (userResult as? Result.Success)?.data?.getUid()?.let {
                 registeredUserDataSource.listenToUserChanges(it)
             }
             // Sign out

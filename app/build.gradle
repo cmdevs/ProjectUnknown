@@ -61,6 +61,7 @@ dependencies {
     implementation "com.google.firebase:firebase-core:$rootProject.firebaseCoreVersion"
     implementation "com.google.firebase:firebase-auth:$rootProject.firebaseAuthVersion"
     implementation "com.firebaseui:firebase-ui-auth:$rootProject.firebaseUiAuthVersion"
+    implementation "com.google.firebase:firebase-config:$rootProject.firebaseConfigVersion"
     implementation "com.google.android.gms:play-services-auth:$rootProject.playServiceAuth"
 
     //facebook

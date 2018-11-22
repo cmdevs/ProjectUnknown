@@ -50,15 +50,15 @@ class FirebaseAuthStateUserDataSource(
     private val currentFirebaseUserObservable =
         MutableLiveData<Result<AuthenticatedUserInfoBasic?>>()
 
+
     private var isAlreadyListening = false
 
     // Listener that saves the [FirebaseUser], fetches the ID token, calls the registration point
     // and updates the user ID observable.
     private val authStateListener: ((FirebaseAuth) -> Unit) = { auth ->
         DefaultScheduler.execute {
-            Log.d("cylee","authStateListener")
             currentFirebaseUserObservable.postValue(
-                Result.Success(
+                Result.Success (
                     FirebaseUserInfo(auth.currentUser)
                 )
             )
