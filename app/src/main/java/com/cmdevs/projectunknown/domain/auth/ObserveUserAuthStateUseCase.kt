@@ -53,6 +53,7 @@ open class ObserveUserAuthStateUseCase(
             }
             // Sign out
             if (userResult is Result.Success && userResult.data?.isSignedIn() == false) {
+                registeredUserDataSource.setAnonymousValue()
                 updateUserObservable()
             }
             // Error
@@ -63,6 +64,7 @@ open class ObserveUserAuthStateUseCase(
 
         // If the Firestore information about the user changes, update result.
         result.addSource(isUserRegisteredObservable) {
+            Log.d("cylee", "isUserRegisteredObservable")
             // When the flag that indicates if an user is an attendee is fetched,
             // update the user result with it:
             updateUserObservable()
@@ -75,6 +77,7 @@ open class ObserveUserAuthStateUseCase(
     }
 
     private fun updateUserObservable() {
+        Log.d("cylee","updateUserObservable ")
         val currentFirebaseUser = currentFirebaseUserObservable.value
         val isRegistered = isUserRegisteredObservable.value
 

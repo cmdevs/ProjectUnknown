@@ -40,7 +40,11 @@ class LoginViewModel(
     }
 
     fun onGoogleSignInClicked() {
-        emitSignInRequest()
+        if (isSignedIn()) {
+            emitSignOutRequest()
+        } else {
+            emitSignInRequest()
+        }
     }
 
     fun emailLoginInput(type: String) {

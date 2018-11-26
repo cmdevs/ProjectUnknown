@@ -39,6 +39,9 @@ class DefaultSignInHandler : SignInHandler {
     }
 
     override fun signOut(context: Context, onComplete: () -> Unit) {
-
+        AuthUI.getInstance()
+            .signOut(context)
+            .addOnCompleteListener { onComplete() }
     }
+
 }

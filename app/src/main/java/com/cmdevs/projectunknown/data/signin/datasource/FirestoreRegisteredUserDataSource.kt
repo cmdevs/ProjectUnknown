@@ -56,6 +56,7 @@ class FirestoreRegisteredUserDataSource
             return
         }
         result.postValue(Result.Success(true))
+
         lastUserId = userId
         // Remove the previous subscription, if it exists:
         //registeredChangedListenerSubscription?.remove()

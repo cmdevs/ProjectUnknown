@@ -57,6 +57,7 @@ class FirebaseAuthStateUserDataSource(
     // and updates the user ID observable.
     private val authStateListener: ((FirebaseAuth) -> Unit) = { auth ->
         DefaultScheduler.execute {
+            Log.d("cylee","authStateListener")
             currentFirebaseUserObservable.postValue(
                 Result.Success (
                     FirebaseUserInfo(auth.currentUser)

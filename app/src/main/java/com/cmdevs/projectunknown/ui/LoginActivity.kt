@@ -46,9 +46,22 @@ class LoginActivity : BaseActivity() {
         }
 
         loginViewModel.performSignInEvent.observe(this, EventObserver {
-            if (it == SignInEvent.RequestSignIn) {
+            /*if (it == SignInEvent.RequestSignIn) {
                 signInHandler.makeSignIntent()?.let {
                     startActivityForResult(it, REQUEST_GOOGLE_SIGNING)
+                }
+            }*/
+
+            when (it) {
+                SignInEvent.RequestSignIn -> {
+                    signInHandler.makeSignIntent()?.let {
+                        Log.d("cylee","sign in")
+                        startActivityForResult(it, REQUEST_GOOGLE_SIGNING)
+                    }
+                }
+                SignInEvent.RequestSignOut -> {
+                    Log.d("cylee","sign out")
+                    signInHandler.signOut(this@LoginActivity)
                 }
             }
         })
