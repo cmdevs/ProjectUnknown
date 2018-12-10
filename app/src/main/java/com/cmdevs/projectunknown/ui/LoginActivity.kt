@@ -11,14 +11,24 @@ import com.cmdevs.projectunknown.R
 import com.cmdevs.projectunknown.data.User
 import com.cmdevs.projectunknown.databinding.ActivityLoginBinding
 import com.cmdevs.projectunknown.result.EventObserver
-import com.cmdevs.projectunknown.ui.signin.SignInEvent
 import com.cmdevs.projectunknown.util.signin.SignInHandler
+import com.cmdevs.projectunknown.util.signin.SignInSuccess
+import com.cmdevs.projectunknown.util.signin.SignType
 import com.cmdevs.projectunknown.util.viewModelProvder
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import org.kodein.di.generic.instance
 
 class LoginActivity : BaseActivity() {
 
     val factory by instance<LoginViewModelProviderFactory>()
+    val googleSignInClient by instance<GoogleSignInClient>()
+    val facebookCallbackManager by instance<CallbackManager>()
+    val loginManager by instance<LoginManager>()
     val signInHandler by instance<SignInHandler>()
 
     lateinit var loginViewModel: LoginViewModel
@@ -45,35 +55,31 @@ class LoginActivity : BaseActivity() {
             viewmodel = loginViewModel
         }
 
-        loginViewModel.performSignInEvent.observe(this, EventObserver {
-            /*if (it == SignInEvent.RequestSignIn) {
-                signInHandler.makeSignIntent()?.let {
-                    startActivityForResult(it, REQUEST_GOOGLE_SIGNING)
-                }
-            }*/
-
-            when (it) {
-                SignInEvent.RequestSignIn -> {
-                    signInHandler.makeSignIntent()?.let {
-                        Log.d("cylee","sign in")
-                        startActivityForResult(it, REQUEST_GOOGLE_SIGNING)
-                    }
-                }
-                SignInEvent.RequestSignOut -> {
-                    Log.d("cylee","sign out")
-                    signInHandler.signOut(this@LoginActivity)
-                }
-            }
+        loginViewModel.navigationToGoogleSignIn.observe(this, EventObserver {
+            signInHandler.makeSignIntent(
+                SignType.Google(googleSignInClient)
+            )?.let { startActivityForResult(it, REQUEST_GOOGLE_SIGNING) }
         })
 
-        loginViewModel.currentSession.observe(this, Observer {
-            Log.d("cylee", "currentSession : ${it}")
+        loginViewModel.navigationToFacebookSignIn.observe(this, EventObserver {
+            loginManager.logInWithReadPermissions(
+                this,
+                mutableListOf("public_profile","email")
+            )
         })
 
+        loginViewModel.facebookSignInResult.observe(this, Observer {
+            Log.d("cylee","facebook signIn result : ${it}")
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        Log.d("cylee","onActivityResult")
+        facebookCallbackManager.onActivityResult(requestCode, resultCode, data)
+        /*signInHandler.signIn(resultCode, data) {
+            it.takeIf { it == SignInSuccess }?.let { loginViewModel.onSignInResult(data) }
+        }*/
     }
 
     fun provideViewModel(): LoginViewModel = viewModelProvder(factory)

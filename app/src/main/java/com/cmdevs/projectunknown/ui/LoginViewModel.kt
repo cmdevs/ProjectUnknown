@@ -1,66 +1,60 @@
 package com.cmdevs.projectunknown.ui
 
+import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.cmdevs.projectunknown.data.EmailInfo
-import com.cmdevs.projectunknown.data.signin.AuthenticatedUserInfo
 import com.cmdevs.projectunknown.result.Event
-import com.cmdevs.projectunknown.result.Result
-import com.cmdevs.projectunknown.ui.signin.SignInDelegate
 import com.cmdevs.projectunknown.util.map
-import com.cmdevs.projectunknown.util.safeLet
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
 class LoginViewModel(
-    val signInDelegate: SignInDelegate
-) : ViewModel(), SignInDelegate by signInDelegate {
+    private val firebaseAuth: FirebaseAuth,
+    signInViewModelDelegate: SignInViewModelDelegate
+) : ViewModel(), SignInViewModelDelegate by signInViewModelDelegate {
 
-    val emailId = MutableLiveData<String>()
-    val emailPassword = MutableLiveData<String>()
+    val _navigationToGoogleSignIn = MutableLiveData<Event<Unit>>()
+    val navigationToGoogleSignIn: LiveData<Event<Unit>>
+        get() = _navigationToGoogleSignIn
 
-    val _emailSignInTitle = MutableLiveData<String>()
-    val emailSignInTitle: LiveData<String>
-        get() = _emailSignInTitle
+    val _navigationToFacebookSignIn = MutableLiveData<Event<Unit>>()
+    val navigationToFacebookSignIn: LiveData<Event<Unit>>
+        get() = _navigationToFacebookSignIn
 
-    val _emailLoginEvent = MutableLiveData<Event<EmailInfo>>()
-    val emailLoginEvent: LiveData<Event<EmailInfo>>
-        get() = _emailLoginEvent
-
-    val _emailLoginInputEvent = MutableLiveData<Event<Unit>>()
-    val emailLoginInputEvent: LiveData<Event<Unit>>
-        get() = _emailLoginInputEvent
-
-    val currentSession: LiveData<AuthenticatedUserInfo?>
-
+    val facebookSignInResult: LiveData<Boolean>
 
     init {
-        currentSession = currentFirebaseUser.map {
-            (it as? Result.Success)?.data
+        facebookSignInResult = currentAuthInfo.map {
+            isSignIn()
         }
     }
 
     fun onGoogleSignInClicked() {
-        if (isSignedIn()) {
-            emitSignOutRequest()
-        } else {
-            emitSignInRequest()
+        _navigationToGoogleSignIn.postValue(Event(Unit))
+    }
+
+    fun onFacebookSignInClicked() {
+        _navigationToFacebookSignIn.postValue(Event(Unit))
+    }
+
+    /*fun onSignInResult(data: Intent?) {
+        Log.d("cylee", "onSignInResult")
+        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+            //val cre = FacebookAuthProvider.getCredential()
+            firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener {
+                    navigationToProfile.postValue(Event(it.isSuccessful))
+                }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-    }
-
-    fun emailLoginInput(type: String) {
-        if (type.equals("join")) _emailSignInTitle.postValue("회원가입") else _emailSignInTitle.postValue(
-            "로그인"
-        )
-        _emailLoginInputEvent.postValue(Event(Unit))
-    }
-
-    fun emailLogin() {
-        safeLet(
-            emailId.value,
-            emailPassword.value
-        ) { id, password ->
-            _emailLoginEvent.postValue(Event(EmailInfo(id, password)))
-        }
-    }
-
+    }*/
 }

@@ -17,6 +17,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 
 fun LoginManager.facebookSignIn(callbackManager: CallbackManager, block: (Any?) -> Unit) {
+
     registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
         override fun onSuccess(result: LoginResult?) {
             Log.d("cylee","onSuccess()")
@@ -33,6 +34,7 @@ fun LoginManager.facebookSignIn(callbackManager: CallbackManager, block: (Any?) 
             block(error)
         }
     })
+
 }
 
 

@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="30sp"
-            android:text="@{viewmodel.emailSignInTitle}"
             app:layout_constraintBottom_toTopOf="@+id/barrier"
             app:layout_constraintTop_toTopOf="parent"
             tool:text="로그인" />
@@ -62,7 +61,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@{viewmodel.emailSignInTitle}"
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
