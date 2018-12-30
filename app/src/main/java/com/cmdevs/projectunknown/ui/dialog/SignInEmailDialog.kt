@@ -4,18 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.cmdevs.projectunknown.databinding.DialogLoginBottomSheetBinding
+import com.cmdevs.projectunknown.databinding.DialogEmailJoinInBinding
+import com.cmdevs.projectunknown.databinding.DialogEmailSignInBinding
 import com.cmdevs.projectunknown.ui.LoginActivity
 import com.cmdevs.projectunknown.ui.LoginViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class LoginBottomSheetDialog
+class SignInEmailDialog
     : BottomSheetDialogFragment() {
 
     lateinit var loginViewModel: LoginViewModel
 
     companion object {
-        fun newInstance() = LoginBottomSheetDialog()
+        fun newInstance() = SignInEmailDialog()
     }
 
     override fun onCreateView(
@@ -24,13 +25,13 @@ class LoginBottomSheetDialog
         savedInstanceState: Bundle?
     ): View? {
         loginViewModel = (requireActivity() as LoginActivity).provideViewModel()
-        val bind = DialogLoginBottomSheetBinding.inflate(
+        val binding = DialogEmailSignInBinding.inflate(
             inflater,
             container,
             false
         ).apply {
             viewmodel = loginViewModel
         }
-        return bind.root
+        return binding.root
     }
 }

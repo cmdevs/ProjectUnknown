@@ -10,6 +10,7 @@ import org.kodein.di.generic.singleton
 val signInDelegateModule = Kodein.Module("signin_delegate_module") {
     bind<SignInViewModelDelegate>() with singleton {
         FirebaseSignInViewModelDelegate(
+            instance(),
             instance()
         )
     }

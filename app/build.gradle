@@ -66,6 +66,7 @@ dependencies {
 
     //facebook
     implementation 'com.facebook.android:facebook-login:[4,5)'
+//    implementation 'com.facebook.android:facebook-android-sdk:4.39'
 
     //lottie
     implementation "com.airbnb.android:lottie:$rootProject.lottieVersion"

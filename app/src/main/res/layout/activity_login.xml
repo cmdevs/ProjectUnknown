@@ -33,10 +33,10 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:drawableTop="@drawable/ic_facebook_64"
+            android:onClick="@{() -> viewmodel.onFacebookSignInClicked()}"
             android:text="facebook"
             android:textAlignment="center"
             android:textSize="20dp"
-            android:onClick="@{() -> viewmodel.onFacebookSignInClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tvEmailSignIn"
             app:layout_constraintStart_toEndOf="@+id/tvGoogleSignIn"
@@ -47,6 +47,7 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:drawableTop="@drawable/ic_email_64"
+            android:onClick="@{() -> viewmodel.onEmailSignInClicked()}"
             android:text="email"
             android:textAlignment="center"
             android:textSize="20dp"
@@ -79,12 +80,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_marginTop="20dp"
+            android:onClick="@{() -> viewmodel.onEmailJoinInClicked()}"
             android:text="이메일 계정이 없으신가요?"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/barrier" />
 
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:goneUnless="@{viewmodel.isLoading}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

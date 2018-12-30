@@ -1,7 +1,8 @@
+/*
 package com.cmdevs.projectunknown.util
 
 import android.util.Log
-import com.cmdevs.projectunknown.data.EmailInfo
+import com.cmdevs.projectunknown.data.EmailUserInfo
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -38,6 +39,7 @@ fun LoginManager.facebookSignIn(callbackManager: CallbackManager, block: (Any?) 
 }
 
 
+*/
 /*fun AppCompatActivity.setupFacebook(callbackManager: CallbackManager, block: (Any?) -> Unit) {
     with(facebookSignButton) {
         setReadPermissions("email", "public_profile")
@@ -58,7 +60,8 @@ fun LoginManager.facebookSignIn(callbackManager: CallbackManager, block: (Any?) 
             }
         })
     }
-}*/
+}*//*
+
 
 fun FirebaseAuth.provideTokenToFirebase(token: Any?, block: (Task<AuthResult>) -> Unit) {
     when (token) {
@@ -73,7 +76,7 @@ fun FirebaseAuth.provideTokenToFirebase(token: Any?, block: (Task<AuthResult>) -
     }
 }
 
-fun FirebaseAuth.registerEmail(info: EmailInfo, block: (Task<AuthResult>) -> Unit) {
+fun FirebaseAuth.registerEmail(info: EmailUserInfo, block: (Task<AuthResult>) -> Unit) {
     createUserWithEmailAndPassword(info.eamilId, info.emailPassword)
         .addOnCompleteListener {
             if (it.isSuccessful) {
@@ -90,10 +93,11 @@ fun FirebaseAuth.registerEmail(info: EmailInfo, block: (Task<AuthResult>) -> Uni
         }
 }
 
-fun FirebaseAuth.signInEmail(info: EmailInfo, block: (Task<AuthResult>?) -> Unit) {
+fun FirebaseAuth.signInEmail(info: EmailUserInfo, block: (Task<AuthResult>?) -> Unit) {
     signInWithEmailAndPassword(info.eamilId, info.emailPassword)
         .addOnCompleteListener {
             if (it.isSuccessful) block(it) else block(null)
         }
 }
 
+*/

@@ -1,60 +1,90 @@
 package com.cmdevs.projectunknown.ui
 
-import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.cmdevs.projectunknown.data.UserAuthInfo
 import com.cmdevs.projectunknown.result.Event
+import com.cmdevs.projectunknown.result.Result
 import com.cmdevs.projectunknown.util.map
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
+import com.cmdevs.projectunknown.util.signin.SignInEvent
 
 class LoginViewModel(
-    private val firebaseAuth: FirebaseAuth,
     signInViewModelDelegate: SignInViewModelDelegate
 ) : ViewModel(), SignInViewModelDelegate by signInViewModelDelegate {
 
-    val _navigationToGoogleSignIn = MutableLiveData<Event<Unit>>()
-    val navigationToGoogleSignIn: LiveData<Event<Unit>>
-        get() = _navigationToGoogleSignIn
+    val isLoading: LiveData<Boolean>
 
-    val _navigationToFacebookSignIn = MutableLiveData<Event<Unit>>()
-    val navigationToFacebookSignIn: LiveData<Event<Unit>>
-        get() = _navigationToFacebookSignIn
+    val _errorMessage = MutableLiveData<Event<Exception>>()
+    val errorMessage: LiveData<Event<Exception>>
+        get() = _errorMessage
 
-    val facebookSignInResult: LiveData<Boolean>
+    val currentAuthUser = MediatorLiveData<Event<UserAuthInfo>>()
 
     init {
-        facebookSignInResult = currentAuthInfo.map {
-            isSignIn()
+
+        currentAuthUser.addSource(currentUser) {
+
+            if (isSignIn()) {
+                currentAuthUser.postValue(Event((it as Result.Success).data))
+            } else {
+                if (it is Result.Error) {
+                    it.exception?.let {
+                        _errorMessage.postValue(Event(it))
+                    }
+                }
+            }
+        }
+
+        currentAuthUser.addSource(currentEmailUser) {
+            if (isSignIn()) {
+                currentAuthUser.postValue(Event((it as Result.Success).data))
+            } else {
+                if (it is Result.Error) {
+                    it.exception?.let {
+                        _errorMessage.postValue(Event(it))
+                    }
+                }
+            }
+        }
+
+        isLoading = currentEmailUser.map {
+            Log.d("cylee","isLoading ${it == Result.Loading}")
+            it == Result.Loading
         }
     }
 
     fun onGoogleSignInClicked() {
-        _navigationToGoogleSignIn.postValue(Event(Unit))
+        requestSignIn(
+            Event(SignInEvent.GOOGLE)
+        )
     }
 
     fun onFacebookSignInClicked() {
-        _navigationToFacebookSignIn.postValue(Event(Unit))
+        requestSignIn(
+            Event(SignInEvent.FACEBOOK)
+        )
     }
 
-    /*fun onSignInResult(data: Intent?) {
-        Log.d("cylee", "onSignInResult")
-        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-        try {
-            val account = task.getResult(ApiException::class.java)
-            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-            //val cre = FacebookAuthProvider.getCredential()
-            firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener {
-                    navigationToProfile.postValue(Event(it.isSuccessful))
-                }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }*/
+    fun onEmailSignInClicked() {
+        requestSignIn(
+            Event(SignInEvent.EMAIL_SIGN_IN)
+        )
+    }
+
+    fun onEmailJoinInClicked() {
+        requestSignIn(
+            Event(SignInEvent.EMAIL_JOIN_IN)
+        )
+    }
+
+    fun emailSignInRequest() {
+        requestEmailSignIn()
+    }
+
+    fun emailJoinInRequest() {
+        requestEmailJoinIn()
+    }
 }
