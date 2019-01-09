@@ -91,9 +91,14 @@ class LoginActivity : BaseActivity() {
         })
 
         loginViewModel.currentAuthUser.observe(this, EventObserver {
-            Log.d("cylee", "state boolean : ${it}")
             //TODO -> move profile
-            startActivity(startIntent(this@LoginActivity, it))
+            it?.let {
+                Log.d("cylee", "state boolean : ${it.getPhotoUrl()}")
+                Log.d("cylee", "state boolean : ${it.getEmail()}")
+                Log.d("cylee", "state boolean : ${it.getDisplayName()}")
+                Log.d("cylee", "state boolean : ${it.isSignIn()}")
+                startActivity(startIntent(this@LoginActivity, it))
+            }
         })
 
         loginViewModel.errorMessage.observe(this, EventObserver {

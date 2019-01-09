@@ -8,14 +8,14 @@ interface UserAuthInfo {
     fun isSignIn(): Boolean
     fun getEmail(): String?
     fun getDisplayName(): String?
-    fun getPhotoUrl(): Uri?
+    fun getPhotoUrl(): String?
 }
 
 open class FirebaseUserAuthInfo(
     val userSigning: Boolean,
     val userEmail: String?,
     val userDisplayName: String?,
-    val userPhotoUrl: Uri?
+    val userPhotoUrl: String?
 ) : UserAuthInfo, Serializable {
 
     override fun isSignIn(): Boolean {
@@ -30,7 +30,7 @@ open class FirebaseUserAuthInfo(
         return userDisplayName
     }
 
-    override fun getPhotoUrl(): Uri? {
+    override fun getPhotoUrl(): String? {
         return userPhotoUrl
     }
 }
