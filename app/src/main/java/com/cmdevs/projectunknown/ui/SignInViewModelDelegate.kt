@@ -1,7 +1,6 @@
 package com.cmdevs.projectunknown.ui
 
 import android.util.Log
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cmdevs.projectunknown.data.EmailRegisterUserInfo

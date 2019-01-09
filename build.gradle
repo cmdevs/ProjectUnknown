@@ -8,6 +8,7 @@ buildscript {
         glideVersion = '4.7.1'
         pagingVersion = "1.0.1"
         lifecycleVersion = '2.0.0'
+        navVersion = "1.0.0-alpha09"
         pagingVersion = '2.1.0-alpha01'
         retrofitVersion = '2.4.0'
         kodeinVersion = '5.3.0'

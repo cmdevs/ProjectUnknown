@@ -48,6 +48,8 @@ dependencies {
     //aac
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
     implementation "androidx.paging:paging-runtime:$rootProject.pagingVersion"
+    implementation "android.arch.navigation:navigation-fragment:$rootProject.navVersion" // use -ktx for Kotlin
+    implementation "android.arch.navigation:navigation-ui:$rootProject.navVersion" // use -ktx for Kotlin
 
     //glide
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"

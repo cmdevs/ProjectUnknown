@@ -8,7 +8,7 @@ open class FirebaseSignInStateDataSource(
     val firebaseAuth: FirebaseAuth
 ) : SignInStateDataSource {
 
-    private val currentFirebaseUserObservable = MutableLiveData<Result<UserAuthInfo>>()
+    val currentFirebaseUserObservable = MutableLiveData<Result<UserAuthInfo>>()
 
     override val authListener: (FirebaseAuth) -> Unit = { firebaseAuth ->
         currentFirebaseUserObservable.postValue(
@@ -17,7 +17,7 @@ open class FirebaseSignInStateDataSource(
                     firebaseAuth.currentUser != null,
                     firebaseAuth.currentUser?.email,
                     firebaseAuth.currentUser?.displayName,
-                    firebaseAuth.currentUser?.photoUrl
+                    firebaseAuth.currentUser?.photoUrl.toString()
                 )
             )
         )

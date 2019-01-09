@@ -29,7 +29,7 @@ class FirebaseSignInEmailStateDataSource(
                                     firebaseAuth.currentUser != null,
                                     firebaseAuth.currentUser?.email,
                                     firebaseAuth.currentUser?.displayName,
-                                    firebaseAuth.currentUser?.photoUrl
+                                    firebaseAuth.currentUser?.photoUrl.toString()
                                 )
                             )
                         )
@@ -54,7 +54,7 @@ class FirebaseSignInEmailStateDataSource(
                                     firebaseAuth.currentUser != null,
                                     firebaseAuth.currentUser?.email,
                                     firebaseAuth.currentUser?.displayName,
-                                    firebaseAuth.currentUser?.photoUrl
+                                    firebaseAuth.currentUser?.photoUrl.toString()
                                 )
                             )
                         )

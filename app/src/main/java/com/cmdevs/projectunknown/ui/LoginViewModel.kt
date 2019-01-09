@@ -21,14 +21,13 @@ class LoginViewModel(
     val errorMessage: LiveData<Event<Exception>>
         get() = _errorMessage
 
-    val currentAuthUser = MediatorLiveData<Event<UserAuthInfo>>()
+    val currentAuthUser = MediatorLiveData<Event<UserAuthInfo?>>()
 
     init {
 
         currentAuthUser.addSource(currentUser) {
-
             if (isSignIn()) {
-                currentAuthUser.postValue(Event((it as Result.Success).data))
+                currentAuthUser.postValue(Event((it as? Result.Success)?.data))
             } else {
                 if (it is Result.Error) {
                     it.exception?.let {
@@ -40,7 +39,7 @@ class LoginViewModel(
 
         currentAuthUser.addSource(currentEmailUser) {
             if (isSignIn()) {
-                currentAuthUser.postValue(Event((it as Result.Success).data))
+                currentAuthUser.postValue(Event((it as? Result.Success)?.data))
             } else {
                 if (it is Result.Error) {
                     it.exception?.let {
