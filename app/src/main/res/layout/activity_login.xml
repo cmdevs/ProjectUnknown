@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.cmdevs.projectunknown.ui.LoginViewModel" />
+            type="com.cmdevs.projectunknown.ui.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

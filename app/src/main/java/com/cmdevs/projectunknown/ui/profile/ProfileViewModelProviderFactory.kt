@@ -1,4 +1,4 @@
-package com.cmdevs.projectunknown.ui
+package com.cmdevs.projectunknown.ui.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

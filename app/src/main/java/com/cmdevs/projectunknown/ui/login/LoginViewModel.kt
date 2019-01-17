@@ -1,4 +1,4 @@
-package com.cmdevs.projectunknown.ui
+package com.cmdevs.projectunknown.ui.login
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.cmdevs.projectunknown.data.UserAuthInfo
 import com.cmdevs.projectunknown.result.Event
 import com.cmdevs.projectunknown.result.Result
+import com.cmdevs.projectunknown.ui.SignInViewModelDelegate
 import com.cmdevs.projectunknown.util.map
 import com.cmdevs.projectunknown.util.signin.SignInEvent
 

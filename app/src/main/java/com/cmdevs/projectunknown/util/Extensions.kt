@@ -2,6 +2,8 @@ package com.cmdevs.projectunknown.util
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.*
 
 
@@ -32,7 +34,10 @@ fun <T1 : Any, T2 : Any, R : Any> safeLet(t: T1?, t2: T2?, block: (T1, T2) -> R)
     return if (t != null && t2 != null) block(t, t2) else null
 }
 
-
 fun <T1 : Any, T2 : Any, R : Any> safeNotNullLet(t: T1?, t2: T2?, block: (T1?, T2?) -> R){
     if(t != null && t2 != null) block(t, t2)
+}
+
+inline fun FragmentManager.inTransaction(func: FragmentTransaction.()-> FragmentTransaction) {
+    beginTransaction().func().commit()
 }
