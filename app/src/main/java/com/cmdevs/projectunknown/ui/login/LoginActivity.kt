@@ -1,4 +1,4 @@
-package com.cmdevs.projectunknown.ui
+package com.cmdevs.projectunknown.ui.login
 
 import android.content.Context
 import android.content.Intent
@@ -12,6 +12,7 @@ import com.cmdevs.projectunknown.R
 import com.cmdevs.projectunknown.data.UserAuthInfo
 import com.cmdevs.projectunknown.databinding.ActivityLoginBinding
 import com.cmdevs.projectunknown.result.EventObserver
+import com.cmdevs.projectunknown.ui.profile.ProfileActivity
 import com.cmdevs.projectunknown.ui.dialog.JoinInEmailDialog
 import com.cmdevs.projectunknown.ui.dialog.SignInEmailDialog
 import com.cmdevs.projectunknown.util.signin.SignInEvent
@@ -30,12 +31,6 @@ class LoginActivity : BaseActivity() {
     companion object {
         const val REQUEST_GOOGLE_SIGNING = 1000
         const val REQUEST_FACEBOOK_SIGNING = 2000
-
-        fun startIntent(context: Context, userAuthInfo: UserAuthInfo): Intent {
-            return Intent(context, ProfileActivity::class.java).apply {
-                putExtra("userAuthInfo", userAuthInfo as Serializable)
-            }
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,13 +52,23 @@ class LoginActivity : BaseActivity() {
                 SignInEvent.GOOGLE -> {
                     signInHandler.makeSignIntent(
                         SignInEvent.GOOGLE
-                    )?.let { startActivityForResult(it, REQUEST_GOOGLE_SIGNING) }
+                    )?.let {
+                        startActivityForResult(
+                            it,
+                            REQUEST_GOOGLE_SIGNING
+                        )
+                    }
                 }
 
                 SignInEvent.FACEBOOK -> {
                     signInHandler.makeSignIntent(
                         SignInEvent.FACEBOOK
-                    )?.let { startActivityForResult(it, REQUEST_FACEBOOK_SIGNING) }
+                    )?.let {
+                        startActivityForResult(
+                            it,
+                            REQUEST_FACEBOOK_SIGNING
+                        )
+                    }
                 }
 
                 SignInEvent.EMAIL_SIGN_IN -> {
@@ -93,11 +98,14 @@ class LoginActivity : BaseActivity() {
         loginViewModel.currentAuthUser.observe(this, EventObserver {
             //TODO -> move profile
             it?.let {
-                Log.d("cylee", "state boolean : ${it.getPhotoUrl()}")
-                Log.d("cylee", "state boolean : ${it.getEmail()}")
-                Log.d("cylee", "state boolean : ${it.getDisplayName()}")
-                Log.d("cylee", "state boolean : ${it.isSignIn()}")
-                startActivity(startIntent(this@LoginActivity, it))
+                startActivity(
+                    Intent(
+                        this,
+                        ProfileActivity::class.java
+                    ).apply {
+                        putExtra("UserAuthInfoKey", (it as Serializable))
+                    }
+                )
             }
         })
 

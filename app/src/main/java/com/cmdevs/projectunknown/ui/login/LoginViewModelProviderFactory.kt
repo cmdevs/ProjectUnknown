@@ -1,8 +1,8 @@
-package com.cmdevs.projectunknown.ui
+package com.cmdevs.projectunknown.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
+import com.cmdevs.projectunknown.ui.SignInViewModelDelegate
 
 class LoginViewModelProviderFactory(
     val signInViewModelDelegate: SignInViewModelDelegate
