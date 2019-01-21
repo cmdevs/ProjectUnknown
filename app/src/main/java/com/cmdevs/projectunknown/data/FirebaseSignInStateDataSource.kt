@@ -15,6 +15,7 @@ open class FirebaseSignInStateDataSource(
             Result.Success(
                 FirebaseUserAuthInfo(
                     firebaseAuth.currentUser != null,
+                    firebaseAuth.currentUser?.uid,
                     firebaseAuth.currentUser?.email,
                     firebaseAuth.currentUser?.displayName,
                     firebaseAuth.currentUser?.photoUrl.toString()

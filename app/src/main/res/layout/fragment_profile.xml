@@ -26,10 +26,12 @@
             android:id="@+id/ivProfilePhoto"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            app:imgRes="@{viewmodel.userPhotoUrl}"
             app:layout_constraintBottom_toTopOf="@+id/barrier"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/space" />
+
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier"
@@ -42,27 +44,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivProfilePhoto" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/etProfileName"
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/leftImageBarrier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:barrierDirection="left"
+            app:constraint_referenced_ids="ivProfilePhoto"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/rightImageBarrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="right"
+            app:constraint_referenced_ids="ivProfilePhoto"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etProfileName"
+            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewmodel.userDisplayName}"
             app:layout_constraintBottom_toTopOf="@+id/btnProfileStart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/rightImageBarrier"
+            app:layout_constraintStart_toStartOf="@+id/leftImageBarrier"
             app:layout_constraintTop_toBottomOf="@+id/barrier"
             tools:text="이치영" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnProfileStart"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="시작하기"
             android:textSize="25sp"
+            android:onClick="@{() -> viewmodel.gettingStarted()}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/rightImageBarrier"
+            app:layout_constraintStart_toStartOf="@+id/leftImageBarrier"
             app:layout_constraintTop_toBottomOf="@id/etProfileName" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
