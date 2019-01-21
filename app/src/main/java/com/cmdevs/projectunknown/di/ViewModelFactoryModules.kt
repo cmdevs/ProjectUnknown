@@ -15,6 +15,8 @@ val viewModelFactoryModule = Kodein.Module("view_model_provider_factory_module")
         )
     }
     bind<ProfileViewModelProviderFactory>() with singleton {
-        ProfileViewModelProviderFactory()
+        ProfileViewModelProviderFactory(
+            instance()
+        )
     }
 }

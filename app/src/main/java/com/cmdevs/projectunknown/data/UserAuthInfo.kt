@@ -1,6 +1,5 @@
 package com.cmdevs.projectunknown.data
 
-import android.net.Uri
 import java.io.Serializable
 
 interface UserAuthInfo {
@@ -9,10 +8,12 @@ interface UserAuthInfo {
     fun getEmail(): String?
     fun getDisplayName(): String?
     fun getPhotoUrl(): String?
+    fun getUid(): String?
 }
 
 open class FirebaseUserAuthInfo(
     val userSigning: Boolean,
+    val userUid: String?,
     val userEmail: String?,
     val userDisplayName: String?,
     val userPhotoUrl: String?
@@ -24,6 +25,10 @@ open class FirebaseUserAuthInfo(
 
     override fun getEmail(): String? {
         return userEmail
+    }
+
+    override fun getUid(): String? {
+        return userUid
     }
 
     override fun getDisplayName(): String? {

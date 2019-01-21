@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.cmdevs.projectunknown.data.UserAuthInfo
 import com.cmdevs.projectunknown.databinding.FragmentProfileBinding
+import com.cmdevs.projectunknown.result.EventObserver
 import com.cmdevs.projectunknown.util.viewModelProvder
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -43,6 +45,16 @@ class ProfileFragment : Fragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("cylee","getBundle : ${arguments?.get(USER_AUTH_INFO_KEY)}")
+        Log.d("cylee", "getBundle : ${arguments?.get(USER_AUTH_INFO_KEY)}")
+        arguments?.get(USER_AUTH_INFO_KEY)?.let { user ->
+            //            Log.d("cylee", "user id : ${(user as UserAuthInfo).getDisplayName()}")
+//            Log.d("cylee", "user email : ${(user as UserAuthInfo).getEmail()}")
+//            Log.d("cylee", "user photoUrl : ${(user as UserAuthInfo).getPhotoUrl()}")
+            profileViewModel.updateProfile((user as UserAuthInfo))
+        }
+
+        profileViewModel.isGettingStarted.observe(this, EventObserver { isGettingStarted ->
+            Log.d("cylee", "isGettingStarted : ${isGettingStarted}")
+        })
     }
 }
