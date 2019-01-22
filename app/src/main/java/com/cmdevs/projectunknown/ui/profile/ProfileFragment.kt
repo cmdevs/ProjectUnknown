@@ -1,11 +1,13 @@
 package com.cmdevs.projectunknown.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.cmdevs.projectunknown.MainActivity
 import com.cmdevs.projectunknown.data.UserAuthInfo
 import com.cmdevs.projectunknown.databinding.FragmentProfileBinding
 import com.cmdevs.projectunknown.result.EventObserver
@@ -55,6 +57,7 @@ class ProfileFragment : Fragment(), KodeinAware {
 
         profileViewModel.isGettingStarted.observe(this, EventObserver { isGettingStarted ->
             Log.d("cylee", "isGettingStarted : ${isGettingStarted}")
+            startActivity(Intent(requireContext(), MainActivity::class.java))
         })
     }
 }
