@@ -5,6 +5,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.*
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 
 
 inline fun <reified VM : ViewModel> FragmentActivity.viewModelProvder(
@@ -40,4 +45,8 @@ fun <T1 : Any, T2 : Any, R : Any> safeNotNullLet(t: T1?, t2: T2?, block: (T1?, T
 
 inline fun FragmentManager.inTransaction(func: FragmentTransaction.()-> FragmentTransaction) {
     beginTransaction().func().commit()
+}
+
+inline fun BottomNavigationView.setupWithNavController(navController: NavController) {
+    NavigationUI.setupWithNavController(this, navController)
 }
