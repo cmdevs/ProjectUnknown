@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/friendListFragment">
+
+    <fragment
+        android:id="@+id/friendListFragment"
+        android:name="com.cmdevs.projectunknown.ui.friend.FriendListFragment"
+        android:label="FriendListFragment" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.cmdevs.projectunknown.ui.map.MapFragment"
+        android:label="MapFragment" />
+    <fragment
+        android:id="@+id/timelineFragment"
+        android:name="com.cmdevs.projectunknown.ui.timeline.TimelineFragment"
+        android:label="TimelineFragment" />
+</navigation>

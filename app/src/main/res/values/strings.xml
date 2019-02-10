@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ProjectUnknown</string>
-
     <!-- navigation item -->
     <string name="navi_friend">친구</string>
     <string name="navi_map">지도</string>
@@ -10,4 +9,8 @@
     <!--facebook -->
     <string name="facebook_app_id">1572365486225880</string>
     <string name="fb_login_protocol_scheme">fb1572365486225880</string>
+
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_application_id" translatable="false">1572365486225880</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb1572365486225880</string>
 </resources>

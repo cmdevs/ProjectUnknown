@@ -7,14 +7,14 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.cmdevs.projectunknown"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -41,13 +41,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$rootProject.kotlin_version"
-    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:design:$rootProject.supportLibraryVersion"
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
 
     //aac
-    implementation "android.arch.lifecycle:extensions:$rootProject.lifecycleVersion"
-    implementation "android.arch.paging:runtime:$rootProject.pagingVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
+    implementation "androidx.paging:paging-runtime:$rootProject.pagingVersion"
+    implementation "android.arch.navigation:navigation-fragment:$rootProject.navVersion" // use -ktx for Kotlin
+    implementation "android.arch.navigation:navigation-ui:$rootProject.navVersion" // use -ktx for Kotlin
 
     //glide
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
@@ -55,17 +57,26 @@ dependencies {
 
     //kodein
     implementation "org.kodein.di:kodein-di-generic-jvm:$rootProject.kodeinVersion"
+    implementation 'org.kodein.di:kodein-di-framework-android-x:5.3.0'
 
     //firebase
     implementation "com.google.firebase:firebase-core:$rootProject.firebaseCoreVersion"
     implementation "com.google.firebase:firebase-auth:$rootProject.firebaseAuthVersion"
+    implementation "com.firebaseui:firebase-ui-auth:$rootProject.firebaseUiAuthVersion"
+    implementation "com.google.firebase:firebase-config:$rootProject.firebaseConfigVersion"
     implementation "com.google.android.gms:play-services-auth:$rootProject.playServiceAuth"
 
     //facebook
     implementation 'com.facebook.android:facebook-login:[4,5)'
+//    implementation 'com.facebook.android:facebook-android-sdk:4.39'
 
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    //lottie
+    implementation "com.airbnb.android:lottie:$rootProject.lottieVersion"
+
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }
+
+apply plugin: 'com.google.gms.google-services'

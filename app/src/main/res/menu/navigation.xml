@@ -2,24 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navi_friend"
+        android:id="@+id/friendListFragment"
         android:icon="@drawable/ic_account_circle_black_24dp"
         android:title="@string/navi_friend" />
 
     <item
-        android:id="@+id/navi_map"
+        android:id="@+id/mapFragment"
         android:icon="@drawable/ic_map_black_24dp"
         android:title="@string/navi_map" />
 
     <item
-        android:id="@+id/navi_timeline"
+        android:id="@+id/timelineFragment"
         android:icon="@drawable/ic_access_time_black_24dp"
         android:title="@string/navi_timeline" />
 
-    <item
+    <!--<item
         android:id="@+id/navi_more"
         android:icon="@drawable/ic_more_black_24dp"
-        android:title="@string/navi_more" />
-
-
+        android:title="@string/navi_more" />-->
 </menu>
