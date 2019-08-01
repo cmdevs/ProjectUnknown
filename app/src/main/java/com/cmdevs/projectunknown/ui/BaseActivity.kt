@@ -1,12 +1,13 @@
-package com.cmdevs.projectunknown
+package com.cmdevs.projectunknown.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import org.kodein.di.KodeinAware
 
-class LoginActivity : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity(), KodeinAware {
+    override val kodein by kodein()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
     }
 }

@@ -22,6 +22,8 @@ android {
     }
 }
 
+apply plugin: 'com.google.gms.google-services'
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
@@ -30,6 +32,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "org.kodein.di:kodein-di-generic-jvm:$kodein_jvm_version"
     implementation "org.kodein.di:kodein-di-framework-android-x:$kodein_androidx_version"
+    implementation "com.google.firebase:firebase-core:$firebase_core_version"
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
