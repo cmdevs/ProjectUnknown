@@ -14,6 +14,7 @@ buildscript {
         junit_version = '4.12'
         google_service_version = '4.2.0'
         firebase_core_version = '17.0.1'
+        firebase_auth_version = '18.0.0'
     }
 
     repositories {

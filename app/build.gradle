@@ -33,6 +33,7 @@ dependencies {
     implementation "org.kodein.di:kodein-di-generic-jvm:$kodein_jvm_version"
     implementation "org.kodein.di:kodein-di-framework-android-x:$kodein_androidx_version"
     implementation "com.google.firebase:firebase-core:$firebase_core_version"
+    implementation "com.google.firebase:firebase-auth:$firebase_auth_version"
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"

@@ -8,3 +8,4 @@ import org.kodein.di.generic.provider
 val viewModelFactoryModules = Kodein.Module("viewModelFactory") {
     bind<LoginViewModelFactory>() with provider { LoginViewModelFactory(kodein) }
 }
+
