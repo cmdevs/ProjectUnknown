@@ -6,6 +6,6 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.singleton
 
 
-val firebaseAuthModule = Kodein.Module("firebaseAuthModule") {
+val appModule = Kodein.Module("appModule") {
     bind<FirebaseAuth>() with singleton { FirebaseAuth.getInstance() }
 }

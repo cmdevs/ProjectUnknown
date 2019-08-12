@@ -5,7 +5,11 @@ import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.provider
 
-val viewModelFactoryModules = Kodein.Module("viewModelFactory") {
-    bind<LoginViewModelFactory>() with provider { LoginViewModelFactory(kodein) }
+val viewModelFactoryModule = Kodein.Module("viewModelFactoryModule") {
+    bind<LoginViewModelFactory>("loginViewModelFactory") with provider {
+        LoginViewModelFactory(
+            kodein
+        )
+    }
 }
 
