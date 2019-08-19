@@ -5,18 +5,19 @@
     <data>
 
         <variable
-            name="viewmodel"
+            name="viewModel"
             type="com.cmdevs.projectunknown.ui.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-ㅂ
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_login_google"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:onClick="@{() -> viewModel.onSignIn()}"
             android:src="@drawable/ic_google_64"
             app:layout_constraintBottom_toTopOf="@+id/tv_login_guide"
             app:layout_constraintEnd_toEndOf="parent"

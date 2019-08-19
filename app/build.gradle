@@ -20,6 +20,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 apply plugin: 'com.google.gms.google-services'
@@ -34,6 +37,7 @@ dependencies {
     implementation "org.kodein.di:kodein-di-framework-android-x:$kodein_androidx_version"
     implementation "com.google.firebase:firebase-core:$firebase_core_version"
     implementation "com.google.firebase:firebase-auth:$firebase_auth_version"
+    implementation "com.firebaseui:firebase-ui-auth:$firebase_ui_auth_version"
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"

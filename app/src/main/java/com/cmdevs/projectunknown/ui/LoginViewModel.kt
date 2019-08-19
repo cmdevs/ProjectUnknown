@@ -1,19 +1,18 @@
 package com.cmdevs.projectunknown.ui
 
-import androidx.lifecycle.LiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.cmdevs.projectunknown.data.FirebaseUserInfo
-import com.cmdevs.projectunknown.domain.auth.ObserveUserAuthStateUseCase
-import com.cmdevs.projectunknown.domain.result.Result
 
 class LoginViewModel(
-    observeUserAuthStateUseCase: ObserveUserAuthStateUseCase
-) : ViewModel() {
+    loginViewModelDelegate: LoginViewModelDelegate
+) : ViewModel(), LoginViewModelDelegate by loginViewModelDelegate {
 
-    val observeUserState: LiveData<Result<FirebaseUserInfo>>
+    fun onSignIn() {
+        Log.d("cylee", "onSignIn()")
+        emitSignInRequest()
+    }
 
-    init {
-        observeUserAuthStateUseCase.execute(Unit) // Satrt Listener Google Firebase Auth State
-        observeUserState = observeUserAuthStateUseCase.observe() //
+    fun onSignOut() {
+        emitSignOutRequest()
     }
 }
