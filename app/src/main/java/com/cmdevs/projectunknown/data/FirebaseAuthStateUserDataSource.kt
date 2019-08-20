@@ -3,6 +3,7 @@ package com.cmdevs.projectunknown.data
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.cmdevs.projectunknown.domain.internal.DefaultScheduler
+import com.cmdevs.projectunknown.domain.result.Result
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 
@@ -15,9 +16,7 @@ class FirebaseAuthStateUserDataSource(
     val firebaseAuthStateListener: (FirebaseAuth) -> Unit = { firebaseAuth ->
         DefaultScheduler.execute {
             firebaseUserInfoBasicObservable.postValue(
-                Result.success(
-                    FirebaseUserInfoBasicImpl(firebaseAuth.currentUser)
-                )
+                Result.Success(FirebaseUserInfoBasicImpl(firebaseAuth.currentUser))
             )
 
             firebaseAuth.currentUser?.let { firebaseUser ->

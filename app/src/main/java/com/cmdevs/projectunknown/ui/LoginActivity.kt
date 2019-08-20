@@ -6,8 +6,10 @@ import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.cmdevs.projectunknown.R
+import com.cmdevs.projectunknown.data.FirebaseUserInfo
 import com.cmdevs.projectunknown.databinding.ActivityLoginBinding
 import com.cmdevs.projectunknown.domain.result.EventObserver
+import com.cmdevs.projectunknown.domain.result.Result
 import com.cmdevs.projectunknown.util.SignInHandler
 import com.cmdevs.projectunknown.util.viewModelProivder
 import org.kodein.di.generic.instance
@@ -28,6 +30,7 @@ class LoginActivity : BaseActivity() {
         val binding =
             DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
         binding.viewModel = loginViewModel
+        binding.lifecycleOwner = this@LoginActivity
         setContentView(binding.root)
 
         /**
@@ -35,12 +38,12 @@ class LoginActivity : BaseActivity() {
          * content : Login Success
          **/
         loginViewModel.observeUserState.observe(this, Observer {
-
+            var firebaseUserInfo: FirebaseUserInfo? = null
+            if(it is Result.Success) firebaseUserInfo = it.data
         })
 
         loginViewModel.performSignInEvent.observe(this, EventObserver { signInType ->
             if (signInType == SignInType.RequestSignIn) {
-                Log.d("cylee", "SignInType.RequestSignIn")
                 startActivityForResult(
                     signInHanlder.makeSignInIntent(),
                     RC_SIGN_IN

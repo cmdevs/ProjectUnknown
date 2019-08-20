@@ -8,7 +8,6 @@ class LoginViewModel(
 ) : ViewModel(), LoginViewModelDelegate by loginViewModelDelegate {
 
     fun onSignIn() {
-        Log.d("cylee", "onSignIn()")
         emitSignInRequest()
     }
 

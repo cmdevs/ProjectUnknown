@@ -24,6 +24,7 @@ class DefaultSignInHanlder : SignInHandler {
         )
         return AuthUI.getInstance().createSignInIntentBuilder()
             .setAvailableProviders(providers)
+            .setIsSmartLockEnabled(false)
             .build()
     }
 
