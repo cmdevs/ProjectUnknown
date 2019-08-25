@@ -40,6 +40,7 @@ class LoginActivity : BaseActivity() {
         loginViewModel.observeUserState.observe(this, Observer {
             var firebaseUserInfo: FirebaseUserInfo? = null
             if(it is Result.Success) firebaseUserInfo = it.data
+            Log.d("cylee","firebaseUserInfo : ${firebaseUserInfo}")
         })
 
         loginViewModel.performSignInEvent.observe(this, EventObserver { signInType ->

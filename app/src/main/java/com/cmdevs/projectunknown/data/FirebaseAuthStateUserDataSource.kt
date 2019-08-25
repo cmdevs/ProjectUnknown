@@ -15,14 +15,25 @@ class FirebaseAuthStateUserDataSource(
     var isAlreadyAuthListening = false
     val firebaseAuthStateListener: (FirebaseAuth) -> Unit = { firebaseAuth ->
         DefaultScheduler.execute {
+            Log.d("cylee","firebaseAuth : ${firebaseAuth}")
+            Log.d("cylee","firebaseAuth currentUser : ${firebaseAuth?.currentUser}")
+            //Log.d("cylee","firebaseAuth : ${firebaseAuth?.currentUser}")
+            //Log.d("cylee","firebaseAuth : ${firebaseAuth?.currentUser}")
+
             firebaseUserInfoBasicObservable.postValue(
                 Result.Success(FirebaseUserInfoBasicImpl(firebaseAuth.currentUser))
             )
 
             firebaseAuth.currentUser?.let { firebaseUser ->
                 val token = firebaseUser.getIdToken(true)
-                val result = Tasks.await(token)
-                Log.d("cylee", "token : ${token}")
+                Log.d("cylee","token1 : ${token}")
+                try {
+                    val result = Tasks.await(token)
+                    Log.d("cylee","result token : ${result?.token}")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    return@let
+                }
             }
         }
     }
