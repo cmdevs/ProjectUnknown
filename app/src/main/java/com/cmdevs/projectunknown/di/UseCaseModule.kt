@@ -7,5 +7,10 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 
 val useCaseModule = Kodein.Module("useCaseModule") {
-    bind<ObserveUserAuthStateUseCase>() with provider { ObserveUserAuthStateUseCase(instance()) }
+    bind<ObserveUserAuthStateUseCase>() with provider {
+        ObserveUserAuthStateUseCase(
+            instance(),
+            instance()
+        )
+    }
 }

@@ -16,6 +16,7 @@ buildscript {
         firebase_core_version = '17.0.1'
         firebase_auth_version = '18.1.0'
         firebase_ui_auth_version = '5.0.0'
+        firestore_version = '20.1.0'
     }
 
     repositories {
