@@ -31,11 +31,14 @@ class FirestoreRegisteredUserDataSource(
 
         val registeredChangedListener =
             { snapshot: DocumentSnapshot?, error: FirebaseFirestoreException? ->
+                Log.d("cylee", "registeredChangedListener trigger")
                 DefaultScheduler.execute {
                     if (error != null) {
+                        Log.d("cylee", "registeredChangedListener error : ${error.message}")
                         return@execute
                     }
 
+                    Log.d("cylee", "snapshot exist: ${snapshot?.exists()}")
                     if (snapshot == null || !snapshot.exists()) {
                         // When the account signs in for the first time, the document doesn't exist
                         result.postValue(Result.Success(false))
@@ -43,6 +46,8 @@ class FirestoreRegisteredUserDataSource(
                     }
 
                     val isRegistered: Boolean? = snapshot.get(REGISTERED_KEY) as? Boolean
+                    Log.d("cylee", "isRegistered: $isRegistered")
+
                     // Only emit a value if it's a new value or a value change.
                     if (result.value == null ||
                         (result.value as? Result.Success)?.data != isRegistered

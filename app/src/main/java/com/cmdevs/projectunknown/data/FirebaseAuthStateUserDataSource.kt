@@ -8,7 +8,8 @@ import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 
 class FirebaseAuthStateUserDataSource(
-    val firebaseAuth: FirebaseAuth
+    val firebaseAuth: FirebaseAuth,
+    val authTokenUpdater: AuthTokenUpdater
 ) : AuthStateUserDataSource {
 
     val firebaseUserInfoBasicObservable = MutableLiveData<Result<FirebaseUserInfoBasic?>>()
@@ -34,6 +35,8 @@ class FirebaseAuthStateUserDataSource(
                     e.printStackTrace()
                     return@let
                 }
+
+                authTokenUpdater.updaterToken(firebaseUser.uid)
             }
         }
     }
