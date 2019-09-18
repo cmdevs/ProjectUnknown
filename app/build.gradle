@@ -39,6 +39,7 @@ dependencies {
     implementation "com.google.firebase:firebase-auth:$firebase_auth_version"
     implementation "com.firebaseui:firebase-ui-auth:$firebase_ui_auth_version"
     implementation "com.google.firebase:firebase-firestore:$firestore_version"
+    implementation "com.jakewharton.timber:timber:$timber_version"
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"

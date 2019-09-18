@@ -5,6 +5,7 @@ import com.cmdevs.projectunknown.di.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
+import timber.log.Timber
 
 class MainApplication : Application(), KodeinAware {
 
@@ -20,5 +21,8 @@ class MainApplication : Application(), KodeinAware {
 
     override fun onCreate() {
         super.onCreate()
+
+        //use timber
+        Timber.plant(Timber.DebugTree())
     }
 }
