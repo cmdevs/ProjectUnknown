@@ -17,6 +17,7 @@ buildscript {
         firebase_auth_version = '18.1.0'
         firebase_ui_auth_version = '5.0.0'
         firestore_version = '20.1.0'
+        timber_version = '4.7.1'
     }
 
     repositories {
