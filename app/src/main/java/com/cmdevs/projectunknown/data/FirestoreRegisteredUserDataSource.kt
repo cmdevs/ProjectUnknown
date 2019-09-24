@@ -8,6 +8,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
+import timber.log.Timber
 
 class FirestoreRegisteredUserDataSource(
     val firestore: FirebaseFirestore
@@ -31,22 +32,26 @@ class FirestoreRegisteredUserDataSource(
 
         val registeredChangedListener =
             { snapshot: DocumentSnapshot?, error: FirebaseFirestoreException? ->
-                Log.d("cylee", "registeredChangedListener trigger")
+                Timber.d("registeredChangedListener trigger")
                 DefaultScheduler.execute {
                     if (error != null) {
-                        Log.d("cylee", "registeredChangedListener error : ${error.message}")
+                        Timber.d("registeredChangedListener error ${error.message}")
                         return@execute
                     }
 
-                    Log.d("cylee", "snapshot exist: ${snapshot?.exists()}")
+                    Timber.d("snapshot exist ${snapshot?.exists()}")
                     if (snapshot == null || !snapshot.exists()) {
+                        Timber.d("snapshot first if")
                         // When the account signs in for the first time, the document doesn't exist
                         result.postValue(Result.Success(false))
                         return@execute
                     }
 
                     val isRegistered: Boolean? = snapshot.get(REGISTERED_KEY) as? Boolean
-                    Log.d("cylee", "isRegistered: $isRegistered")
+                    Timber.d("isRegistered ${isRegistered}")
+
+                    Timber.d("result value ${result.value}")
+                    Timber.d("(result.value as? Result.Success)?.data ${(result.value as? Result.Success)?.data}")
 
                     // Only emit a value if it's a new value or a value change.
                     if (result.value == null ||
@@ -54,6 +59,8 @@ class FirestoreRegisteredUserDataSource(
                     ) {
                         Log.d("cylee", "Received registered flag: $isRegistered")
                         result.postValue(Result.Success(isRegistered))
+                    } else {
+                        Timber.d("snapshot second else else else")
                     }
                 }
             }

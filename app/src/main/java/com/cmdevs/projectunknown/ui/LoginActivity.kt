@@ -13,6 +13,7 @@ import com.cmdevs.projectunknown.domain.result.Result
 import com.cmdevs.projectunknown.util.SignInHandler
 import com.cmdevs.projectunknown.util.viewModelProivder
 import org.kodein.di.generic.instance
+import timber.log.Timber
 
 class LoginActivity : BaseActivity() {
 
@@ -40,7 +41,8 @@ class LoginActivity : BaseActivity() {
         loginViewModel.observeUserState.observe(this, Observer {
             var firebaseUserInfo: FirebaseUserInfo? = null
             if(it is Result.Success) firebaseUserInfo = it.data
-            Log.d("cylee","firebaseUserInfo : ${firebaseUserInfo}")
+            Timber.d("firebaseUserInfo ${firebaseUserInfo}")
+
         })
 
         loginViewModel.performSignInEvent.observe(this, EventObserver { signInType ->

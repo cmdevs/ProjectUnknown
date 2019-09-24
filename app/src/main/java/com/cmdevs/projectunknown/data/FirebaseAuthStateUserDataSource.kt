@@ -6,6 +6,7 @@ import com.cmdevs.projectunknown.domain.internal.DefaultScheduler
 import com.cmdevs.projectunknown.domain.result.Result
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
+import timber.log.Timber
 
 class FirebaseAuthStateUserDataSource(
     val firebaseAuth: FirebaseAuth,
@@ -16,7 +17,7 @@ class FirebaseAuthStateUserDataSource(
     var isAlreadyAuthListening = false
     val firebaseAuthStateListener: (FirebaseAuth) -> Unit = { firebaseAuth ->
         DefaultScheduler.execute {
-            Log.d("cylee","firebaseAuth currentUser : ${firebaseAuth?.currentUser}")
+            Timber.d("firebase currentUser ${firebaseAuth?.currentUser}")
 
             firebaseUserInfoBasicObservable.postValue(
                 Result.Success(FirebaseUserInfoBasicImpl(firebaseAuth.currentUser))
@@ -24,15 +25,13 @@ class FirebaseAuthStateUserDataSource(
 
             firebaseAuth.currentUser?.let { firebaseUser ->
                 val token = firebaseUser.getIdToken(true)
-                Log.d("cylee","token1 : ${token}")
                 try {
                     val result = Tasks.await(token)
-                    Log.d("cylee","result token : ${result?.token}")
+                    Timber.d("token : $result")
                 } catch (e: Exception) {
                     e.printStackTrace()
                     return@let
                 }
-
                 authTokenUpdater.updaterToken(firebaseUser.uid)
             }
         }

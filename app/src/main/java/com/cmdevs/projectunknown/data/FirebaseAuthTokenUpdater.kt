@@ -5,16 +5,19 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.iid.FirebaseInstanceId
+import timber.log.Timber
 
 class FirebaseAuthTokenUpdater(
     val firestore: FirebaseFirestore
 ) : AuthTokenUpdater {
 
     override fun updaterToken(token: String) {
+        Timber.d("token $token")
         val tk = FirebaseInstanceId.getInstance().token
+        Timber.d("tk $token")
 
         if (tk == null) {
-            Log.d("cylee", "Error getting FCM ID token for user $token")
+            Timber.d("Error getting FCM ID token for user $token")
             return
         }
 
@@ -30,9 +33,9 @@ class FirebaseAuthTokenUpdater(
             .document(token.take(TOKEN_ID_LENGTH))
             .set(userInfo, SetOptions.merge()).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Log.d("cylee","ID token successfully uploaded for user $token")
+                    Timber.d("ID token successfully uploaded for user $token")
                 } else {
-                    Log.d("cylee","ID token Error uploaded for user $token")
+                    Timber.d("ID token Error uploaded for user $token")
                 }
             }
 
@@ -45,9 +48,9 @@ class FirebaseAuthTokenUpdater(
             .document(token)
             .set(lastUsage, SetOptions.merge()).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Log.d("cylee","ID token successfully uploaded for user $token")
+                    Timber.d("ID token successfully uploaded for user $token")
                 } else {
-                    Log.d("cylee","ID token Error uploaded for user $token")
+                    Timber.d("ID token Error uploaded for user $token")
                 }
             }
     }
