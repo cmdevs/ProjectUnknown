@@ -13,8 +13,9 @@
 *.ipr
 *.iws
 .idea/
-.gradle/
+.idea
 build/
+.gradle/
 local.properties
 .DS_Store
 /build
