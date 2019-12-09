@@ -1,5 +1,7 @@
 package com.cmdevs.projectunknown.data
 
+import com.google.firebase.auth.FirebaseUser
+
 interface AuthTokenUpdater {
-    fun updaterToken(token: String)
+    fun updaterToken(firebaseUser: FirebaseUser)
 }

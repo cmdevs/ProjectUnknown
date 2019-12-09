@@ -15,24 +15,19 @@ class FirebaseAuthStateUserDataSource(
 
     val firebaseUserInfoBasicObservable = MutableLiveData<Result<FirebaseUserInfoBasic?>>()
     var isAlreadyAuthListening = false
+
+
+
     val firebaseAuthStateListener: (FirebaseAuth) -> Unit = { firebaseAuth ->
         DefaultScheduler.execute {
-            Timber.d("firebase currentUser ${firebaseAuth?.currentUser}")
+            Timber.d("firebase currentUser ${firebaseAuth.currentUser}")
 
             firebaseUserInfoBasicObservable.postValue(
                 Result.Success(FirebaseUserInfoBasicImpl(firebaseAuth.currentUser))
             )
 
             firebaseAuth.currentUser?.let { firebaseUser ->
-                val token = firebaseUser.getIdToken(true)
-                try {
-                    val result = Tasks.await(token)
-                    Timber.d("token : $result")
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    return@let
-                }
-                authTokenUpdater.updaterToken(firebaseUser.uid)
+                authTokenUpdater.updaterToken(firebaseUser)
             }
         }
     }

@@ -2,7 +2,6 @@ package com.cmdevs.projectunknown.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.cmdevs.projectunknown.R
@@ -29,7 +28,7 @@ class LoginActivity : BaseActivity() {
         //setContentView(R.layout.activity_login)
         val loginViewModel = viewModelProivder<LoginViewModel>(loginViewModelFactory)
         val binding =
-            DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
+                DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
         binding.viewModel = loginViewModel
         binding.lifecycleOwner = this@LoginActivity
         setContentView(binding.root)
@@ -39,17 +38,20 @@ class LoginActivity : BaseActivity() {
          * content : Login Success
          **/
         loginViewModel.observeUserState.observe(this, Observer {
+            Timber.d("firebaseUser Login Success")
             var firebaseUserInfo: FirebaseUserInfo? = null
-            if(it is Result.Success) firebaseUserInfo = it.data
-            Timber.d("firebaseUserInfo ${firebaseUserInfo}")
-
+            if (it is Result.Success) firebaseUserInfo = it.data
+            startActivity(Intent(this@LoginActivity, ProfileActivity::class.java).apply {
+                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                putExtra(ProfileFragment.ARG_UID, firebaseUserInfo?.getUid())
+            })
         })
 
         loginViewModel.performSignInEvent.observe(this, EventObserver { signInType ->
             if (signInType == SignInType.RequestSignIn) {
                 startActivityForResult(
-                    signInHanlder.makeSignInIntent(),
-                    RC_SIGN_IN
+                        signInHanlder.makeSignInIntent(),
+                        RC_SIGN_IN
                 )
             } else if (signInType == SignInType.RequestSignOut) {
 

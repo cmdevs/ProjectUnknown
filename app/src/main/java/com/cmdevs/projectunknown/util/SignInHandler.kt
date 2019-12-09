@@ -19,6 +19,7 @@ class DefaultSignInHanlder : SignInHandler {
                 GoogleSignInOptions.Builder()
                     .requestId()
                     .requestEmail()
+                    .requestProfile()
                     .build()
             ).build()
         )

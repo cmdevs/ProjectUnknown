@@ -9,10 +9,11 @@ import org.kodein.di.generic.provider
 val repositoryModule = Kodein.Module("repositoryModule") {
     bind<AuthStateUserDataSource>() with provider {
         FirebaseAuthStateUserDataSource(
-            instance(),
-            instance()
+                instance(),
+                instance()
         )
     }
     bind<RegisteredUserDataSource>() with provider { FirestoreRegisteredUserDataSource(instance()) }
     bind<AuthTokenUpdater>() with provider { FirebaseAuthTokenUpdater(instance()) }
+    bind<UserDataSource>() with provider { FirebaseUserDataSource(instance()) }
 }

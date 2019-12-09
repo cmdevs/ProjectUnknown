@@ -1,6 +1,5 @@
 package com.cmdevs.projectunknown.data
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.cmdevs.projectunknown.domain.internal.DefaultScheduler
 import com.cmdevs.projectunknown.domain.result.Result
@@ -23,8 +22,11 @@ class FirestoreRegisteredUserDataSource(
             userId
         } else {
             // noRefresh
+            Timber.d("userId == lastUserId")
             return
         }
+
+        Timber.d("userId $userId")
 
         //clean listener
         registeredChangedListenerSubscription?.remove()
@@ -47,20 +49,17 @@ class FirestoreRegisteredUserDataSource(
                         return@execute
                     }
 
-                    val isRegistered: Boolean? = snapshot.get(REGISTERED_KEY) as? Boolean
-                    Timber.d("isRegistered ${isRegistered}")
+                    val isRegisterdId = (snapshot.get(REGISTERED_KEY) as? Boolean)?.let {
+                        Timber.d("it $it")
+                        it
+                    } ?: let {
+                        Timber.d("it false")
+                        false
+                    }
+                    Timber.d("isRegisterdId ${isRegisterdId}")
 
-                    Timber.d("result value ${result.value}")
-                    Timber.d("(result.value as? Result.Success)?.data ${(result.value as? Result.Success)?.data}")
-
-                    // Only emit a value if it's a new value or a value change.
-                    if (result.value == null ||
-                        (result.value as? Result.Success)?.data != isRegistered
-                    ) {
-                        Log.d("cylee", "Received registered flag: $isRegistered")
-                        result.postValue(Result.Success(isRegistered))
-                    } else {
-                        Timber.d("snapshot second else else else")
+                    if(result.value == null || (result.value as? Result.Success)?.data != isRegisterdId) {
+                        result.postValue(Result.Success(isRegisterdId))
                     }
                 }
             }
@@ -68,6 +67,7 @@ class FirestoreRegisteredUserDataSource(
         registeredChangedListenerSubscription = firestore.collection(USERS_COLLECTION)
             .document(userId).addSnapshotListener(registeredChangedListener)
         lastUserId = userId
+        Timber.d("lastUserId $lastUserId")
     }
 
     override fun observeResult() = result
@@ -78,6 +78,7 @@ class FirestoreRegisteredUserDataSource(
 
     companion object {
         private const val USERS_COLLECTION = "users"
+        private const val USER_ID_KEY = "id"
         private const val REGISTERED_KEY = "registered"
     }
 }
